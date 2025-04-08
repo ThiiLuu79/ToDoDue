@@ -2,11 +2,12 @@ import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { TaskCardComponent } from '../task-card/task-card.component';
 import { TaskFormComponent } from '../task-form/task-form.component';
+import { TaskDetailsComponent } from '../task-details/task-details.component';
 
 @Component({
   selector: 'app-dashboard',
   standalone: true,
-  imports: [CommonModule, TaskCardComponent, TaskFormComponent],
+  imports: [CommonModule, TaskCardComponent, TaskFormComponent, TaskDetailsComponent],
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.sass']
 })
@@ -15,6 +16,7 @@ export class DashboardComponent {
   todoTasks: any[] = [];
   inProgressTasks: any[] = [];
   doneTasks: any[] = [];
+  selectedTask: any = null;
 
   openTaskForm(): void {
     this.isTaskFormOpen = true;
@@ -22,6 +24,14 @@ export class DashboardComponent {
 
   closeTaskForm(): void {
     this.isTaskFormOpen = false;
+  }
+
+  openTaskDetails(task: any): void {
+    this.selectedTask = task;
+  }
+
+  closeTaskDetails(): void {
+    this.selectedTask = null;
   }
 
   addTaskToTodoColumn(task: any): void {

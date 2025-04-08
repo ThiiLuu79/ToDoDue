@@ -11,9 +11,15 @@ import { CommonModule } from '@angular/common';
 export class TaskCardComponent {
   @Input() task: any;
   @Output() deleteTask = new EventEmitter<any>();
+  @Output() viewDetails = new EventEmitter<any>();
+
 
   onDelete(): void {
     this.deleteTask.emit(this.task);
+  }
+
+  onViewDetails(): void {
+    this.viewDetails.emit(this.task);
   }
 
   getBackgroundColor(): string {

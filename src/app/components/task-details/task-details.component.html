@@ -1,0 +1,22 @@
+<div class="modal" tabindex="-1" style="display: block; background-color: rgba(0, 0, 0, 0.5);">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Task Details</h5>
+          <button type="button" class="btn-close" (click)="onClose()"></button>
+        </div>
+        <div class="modal-body">
+          <p><strong>Name:</strong> {{ task.name }}</p>
+          <p><strong>Course:</strong> {{ task.course }}</p>
+          <p><strong>Due Date:</strong> {{ task.dueDate }}</p>
+          <p><strong>Description:</strong> {{ task.description || 'N/A' }}</p>
+          <p><strong>Effort Estimate:</strong> {{ task.effortEstimate || 'N/A' }}</p>
+          <p><strong>Notes:</strong> {{ task.notes || 'N/A' }}</p>
+          <p><strong>Status:</strong> {{ task.status }}</p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" (click)="onClose()">Close</button>
+        </div>
+      </div>
+    </div>
+</div>

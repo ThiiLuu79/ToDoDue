@@ -1,12 +1,16 @@
-<div class="card" [style.background-color]="getBackgroundColor()" style="width: 18rem;">
+<div
+  class="card"
+  [style.background-color]="getBackgroundColor()"
+  style="width: 18rem; cursor: pointer;"
+  (click)="onViewDetails()"
+>
   <div class="card-body">
     <h5 class="card-title">{{ task.name }}</h5>
-    <p class="card-text"><strong>Status:</strong> {{ task.status }}</p>
     <p class="card-text"><strong>Course:</strong> {{ task.course }}</p>
     <p class="card-text"><strong>Due:</strong> {{ task.dueDate }}</p>
     <p class="card-text"><strong>Description:</strong> {{ task.description || 'N/A' }}</p>
     <p class="card-text"><strong>Effort:</strong> {{ task.effortEstimate || 'N/A' }}</p>
     <p class="card-text"><strong>Notes:</strong> {{ task.notes || 'N/A' }}</p>
-    <button class="btn btn-danger mt-2" (click)="onDelete()">Delete</button>
+    <button class="btn btn-danger mt-2" (click)="onDelete(); $event.stopPropagation()">Delete</button>
   </div>
 </div>
