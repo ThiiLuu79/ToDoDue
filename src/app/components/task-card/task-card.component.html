@@ -1,16 +1,16 @@
 <div
-  class="card"
+  class="card d-flex align-items-center justify-content-between flex-row px-3 py-2 my-2"
   [style.background-color]="getBackgroundColor()"
-  style="width: 18rem; cursor: pointer;"
+  style="cursor: pointer; height: 3rem;"
   (click)="onViewDetails()"
 >
-  <div class="card-body">
-    <h5 class="card-title">{{ task.name }}</h5>
-    <p class="card-text"><strong>Course:</strong> {{ task.course }}</p>
-    <p class="card-text"><strong>Due:</strong> {{ task.dueDate }}</p>
-    <p class="card-text"><strong>Description:</strong> {{ task.description || 'N/A' }}</p>
-    <p class="card-text"><strong>Effort:</strong> {{ task.effortEstimate || 'N/A' }}</p>
-    <p class="card-text"><strong>Notes:</strong> {{ task.notes || 'N/A' }}</p>
-    <button class="btn btn-danger mt-2" (click)="onDelete(); $event.stopPropagation()">Delete</button>
-  </div>
+  <span class="fw-bold text-truncate">
+    {{ task.name }} - {{ task.dueDate }}
+  </span>
+  <button
+    class="btn btn-sm btn-outline-danger"
+    (click)="onDelete(); $event.stopPropagation()"
+  >
+    Delete
+  </button>
 </div>
