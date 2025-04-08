@@ -15,4 +15,23 @@ export class TaskCardComponent {
   onDelete(): void {
     this.deleteTask.emit(this.task);
   }
+
+  getBackgroundColor(): string {
+    const currentDate = new Date();
+    const dueDate = new Date(this.task.dueDate);
+    const timeDiff = dueDate.getTime() - currentDate.getTime();
+    const daysDiff = Math.ceil(timeDiff / (1000 * 60 * 60 * 24)); // Convert milliseconds to days
+
+    if (daysDiff > 7) {
+      return 'green'; // More than 7 days
+    } else if (daysDiff > 3) {
+      return 'yellow'; // Between 4 and 7 days
+    } else if (daysDiff > 1) {
+      return 'orange'; // Between 2 and 3 days
+    } else if (daysDiff >= 0) {
+      return 'red'; // Less than 24 hours
+    } else {
+      return 'darkred'; // Past due
+    }
+  }
 }

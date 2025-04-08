@@ -1,4 +1,4 @@
-<div class="card" style="width: 18rem;">
+<div class="card" [style.background-color]="getBackgroundColor()" style="width: 18rem;">
   <div class="card-body">
     <h5 class="card-title">{{ task.name }}</h5>
     <p class="card-text"><strong>Status:</strong> {{ task.status }}</p>
