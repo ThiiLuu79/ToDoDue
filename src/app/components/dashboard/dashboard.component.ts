@@ -1,15 +1,21 @@
 import { Component } from '@angular/core';
+import { TaskFormComponent } from '../task-form/task-form.component';
 
 @Component({
   selector: 'app-dashboard',
-  standalone: true,
   templateUrl: './dashboard.component.html',
-  styleUrl: './dashboard.component.sass'
+  standalone: true,
+  imports: [TaskFormComponent],
+  styleUrls: ['./dashboard.component.sass']
 })
 export class DashboardComponent {
-  constructor() {}
+  isTaskFormOpen = false;
 
-  ngOnInit(): void {
-    // Initialization logic for the Kanban dashboard can go here
+  openTaskForm(): void {
+    this.isTaskFormOpen = true;
+  }
+
+  closeTaskForm(): void {
+    this.isTaskFormOpen = false;
   }
 }

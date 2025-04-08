@@ -2,6 +2,7 @@
   <header class="dashboard-header text-center">
     <h2>Tasks Dashboard</h2>
     <p class="dashboard-subtitle">Organize your tasks by status and stay on top of your deadlines!</p>
+    <button class="btn btn-primary mt-3" (click)="openTaskForm()">Create Task</button>
   </header>
   <div class="row">
     <div class="col-md-4">
@@ -20,6 +21,21 @@
       <h3>Done</h3>
       <div class="task-column" id="doneColumn">
         <!-- Task Cards will go here -->
+      </div>
+    </div>
+  </div>
+
+  <!-- Task Form Modal -->
+  <div class="modal" tabindex="-1" [class.show]="isTaskFormOpen" [style.display]="isTaskFormOpen ? 'block' : 'none'">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Create New Task</h5>
+          <button type="button" class="btn-close" (click)="closeTaskForm()"></button>
+        </div>
+        <div class="modal-body">
+          <app-task-form></app-task-form>
+        </div>
       </div>
     </div>
   </div>
