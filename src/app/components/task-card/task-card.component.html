@@ -7,5 +7,6 @@
     <p class="card-text"><strong>Description:</strong> {{ task.description || 'N/A' }}</p>
     <p class="card-text"><strong>Effort:</strong> {{ task.effortEstimate || 'N/A' }}</p>
     <p class="card-text"><strong>Notes:</strong> {{ task.notes || 'N/A' }}</p>
+    <button class="btn btn-danger mt-2" (click)="onDelete()">Delete</button>
   </div>
 </div>

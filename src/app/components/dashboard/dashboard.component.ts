@@ -58,7 +58,7 @@ export class DashboardComponent {
     event.preventDefault();
   }
 
-  private removeTaskFromColumn(task: any): void {
+  removeTaskFromColumn(task: any): void {
     // Remove the task from all columns by matching the ID
     this.todoTasks = this.todoTasks.filter(t => t.id !== task.id);
     this.inProgressTasks = this.inProgressTasks.filter(t => t.id !== task.id);

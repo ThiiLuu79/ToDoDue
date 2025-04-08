@@ -16,6 +16,7 @@
         <app-task-card
           *ngFor="let task of todoTasks"
           [task]="task"
+          (deleteTask)="removeTaskFromColumn(task)"
           draggable="true"
           (dragstart)="onDragStart($event, task)"
         ></app-task-card>
@@ -32,6 +33,7 @@
         <app-task-card
           *ngFor="let task of inProgressTasks"
           [task]="task"
+          (deleteTask)="removeTaskFromColumn(task)"
           draggable="true"
           (dragstart)="onDragStart($event, task)"
         ></app-task-card>
@@ -48,6 +50,7 @@
         <app-task-card
           *ngFor="let task of doneTasks"
           [task]="task"
+          (deleteTask)="removeTaskFromColumn(task)"
           draggable="true"
           (dragstart)="onDragStart($event, task)"
         ></app-task-card>
