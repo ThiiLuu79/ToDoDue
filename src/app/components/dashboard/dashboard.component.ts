@@ -7,5 +7,9 @@ import { Component } from '@angular/core';
   styleUrl: './dashboard.component.sass'
 })
 export class DashboardComponent {
+  constructor() {}
 
+  ngOnInit(): void {
+    // Initialization logic for the Kanban dashboard can go here
+  }
 }

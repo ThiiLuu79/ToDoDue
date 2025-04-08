@@ -7,7 +7,7 @@ import { TaskFormComponent } from './components/task-form/task-form.component';
   selector: 'app-root',
   templateUrl: './app.component.html',
   standalone: true,
-  imports: [TaskCardComponent, DashboardComponent, TaskFormComponent],
+  imports: [DashboardComponent],
   styleUrl: './app.component.sass'
 })
 export class AppComponent {
