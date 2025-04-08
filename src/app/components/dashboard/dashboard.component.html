@@ -61,6 +61,29 @@
     </div>
   </div>
 
+  <div class="color-legend mb-4 d-flex justify-content-center align-items-center flex-wrap">
+    <div class="d-flex align-items-center me-4 mb-2">
+      <span class="color-box bg-green me-2"></span>
+      <span>Deadline is in more than a week</span>
+    </div>
+    <div class="d-flex align-items-center me-4 mb-2">
+      <span class="color-box bg-yellow me-2"></span>
+      <span>Deadline is in 4 to 7 days</span>
+    </div>
+    <div class="d-flex align-items-center me-4 mb-2">
+      <span class="color-box bg-orange me-2"></span>
+      <span>Deadline is in 2 to 3 days</span>
+    </div>
+    <div class="d-flex align-items-center me-4 mb-2">
+      <span class="color-box bg-red me-2"></span>
+      <span>Deadline is in less than 24 hours</span>
+    </div>
+    <div class="d-flex align-items-center mb-2">
+      <span class="color-box bg-darkred me-2"></span>
+      <span>Task is overdue</span>
+    </div>
+  </div>
+
   <!-- Task Form Modal -->
   <div class="modal" tabindex="-1" [class.show]="isTaskFormOpen" [style.display]="isTaskFormOpen ? 'block' : 'none'">
     <div class="modal-dialog">
