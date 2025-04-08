@@ -1,36 +1,35 @@
 <div class="task-form">
-    <form>
-      <div class="form-group">
-        <label for="taskName">Task Name</label>
-        <input type="text" id="taskName" class="form-control" placeholder="Enter task name">
-      </div>
-  
-      <div class="form-group">
-        <label for="taskCourse">Course</label>
-        <input type="text" id="taskCourse" class="form-control" placeholder="Enter course name">
-      </div>
-  
-      <div class="form-group">
-        <label for="dueDate">Due Date</label>
-        <input type="date" id="dueDate" class="form-control">
-      </div>
-  
-      <div class="form-group">
-        <label for="taskDescription">Description (optional)</label>
-        <textarea id="taskDescription" class="form-control" placeholder="Enter task description"></textarea>
-      </div>
-  
-      <div class="form-group">
-        <label for="effortEstimate">Effort Estimate (optional)</label>
-        <input type="number" id="effortEstimate" class="form-control" placeholder="Enter effort estimate">
-      </div>
-  
-      <div class="form-group">
-        <label for="taskNotes">Additional Notes (optional)</label>
-        <textarea id="taskNotes" class="form-control" placeholder="Enter additional notes"></textarea>
-      </div>
-  
-      <button type="submit" class="btn btn-primary mt-3">Add Task</button>
-    </form>
+  <form>
+    <div class="form-group">
+      <label for="taskName">Task Name <span class="text-danger">*</span></label>
+      <input type="text" id="taskName" class="form-control" [(ngModel)]="task.name" name="taskName" placeholder="Enter task name" required>
+    </div>
+
+    <div class="form-group">
+      <label for="taskCourse">Course <span class="text-danger">*</span></label>
+      <input type="text" id="taskCourse" class="form-control" [(ngModel)]="task.course" name="taskCourse" placeholder="Enter course name" required>
+    </div>
+
+    <div class="form-group">
+      <label for="dueDate">Due Date <span class="text-danger">*</span></label>
+      <input type="date" id="dueDate" class="form-control" [(ngModel)]="task.dueDate" name="dueDate" required>
+    </div>
+
+    <div class="form-group">
+      <label for="taskDescription">Description (optional)</label>
+      <textarea id="taskDescription" class="form-control" [(ngModel)]="task.description" name="taskDescription" placeholder="Enter task description"></textarea>
+    </div>
+
+    <div class="form-group">
+      <label for="effortEstimate">Effort Estimate (optional)</label>
+      <input type="number" id="effortEstimate" class="form-control" [(ngModel)]="task.effortEstimate" name="effortEstimate" placeholder="Enter effort estimate">
+    </div>
+
+    <div class="form-group">
+      <label for="taskNotes">Additional Notes (optional)</label>
+      <textarea id="taskNotes" class="form-control" [(ngModel)]="task.notes" name="taskNotes" placeholder="Enter additional notes"></textarea>
+    </div>
+
+    <button type="button" class="btn btn-primary mt-3" (click)="createTask()">Add Task</button>
+  </form>
 </div>
-  

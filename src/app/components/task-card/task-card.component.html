@@ -1,10 +1,10 @@
 <div class="card" style="width: 18rem;">
-    <div class="card-body">
-      <h5 class="card-title">Task name</h5>
-      <p class="card-text">Course</p>
-      <p class="card-text">Due</p>
-      <p class="card-text">Estimate effort</p>
-      <p class="card-text">Description</p>
-      <p class="card-text">Notes</p>
-    </div>
+  <div class="card-body">
+    <h5 class="card-title">{{ task.name }}</h5>
+    <p class="card-text"><strong>Course:</strong> {{ task.course }}</p>
+    <p class="card-text"><strong>Due:</strong> {{ task.dueDate }}</p>
+    <p class="card-text"><strong>Description:</strong> {{ task.description || 'N/A' }}</p>
+    <p class="card-text"><strong>Effort:</strong> {{ task.effortEstimate || 'N/A' }}</p>
+    <p class="card-text"><strong>Notes:</strong> {{ task.notes || 'N/A' }}</p>
+  </div>
 </div>

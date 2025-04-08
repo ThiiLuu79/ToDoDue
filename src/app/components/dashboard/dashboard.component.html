@@ -8,7 +8,7 @@
     <div class="col-md-4">
       <h3>To Do</h3>
       <div class="task-column" id="todoColumn">
-        <!-- Task Cards will go here -->
+        <app-task-card *ngFor="let task of todoTasks" [task]="task"></app-task-card>
       </div>
     </div>
     <div class="col-md-4">
@@ -34,7 +34,7 @@
           <button type="button" class="btn-close" (click)="closeTaskForm()"></button>
         </div>
         <div class="modal-body">
-          <app-task-form></app-task-form>
+          <app-task-form (taskCreated)="addTaskToTodoColumn($event)"></app-task-form>
         </div>
       </div>
     </div>
