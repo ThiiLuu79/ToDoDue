@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import { TaskCardComponent } from './components/task-card/task-card.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 
 @Component({
