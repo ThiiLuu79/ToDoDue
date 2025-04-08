@@ -105,6 +105,14 @@ export class DashboardComponent implements OnInit {
     this.doneTasks = this.doneTasks.filter(t => t.id !== task.id);
   }
 
+  getUrgentTasks(): any[] {
+    // Combine all tasks into a single array
+    const allTasks = [...this.todoTasks, ...this.inProgressTasks, ...this.doneTasks];
+  
+    // Sort tasks by their due date (earliest first)
+    return allTasks.sort((a, b) => new Date(a.dueDate).getTime() - new Date(b.dueDate).getTime());
+  }
+
   saveTasksToLocalStorage(): void {
     if (typeof window !== 'undefined' && window.localStorage) {
       const tasks = {
