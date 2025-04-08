@@ -1,59 +1,62 @@
-# TodoDue
+# 📝 TodoDue - Your Ultimate Homework Tracker
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 19.2.6.
+Welcome to **TodoDue**, the app designed to help students stay on top of their homework and deadlines! With a focus on simplicity and functionality, TodoDue ensures you never miss a deadline again. 🎯
 
-## Development server
+---
 
-To start a local development server, run:
+## 🚀 Features
 
-```bash
-ng serve
-```
+### ✅ **Task Management**
+- Add tasks with details like:
+  - **Name**
+  - **Course**
+  - **Due Date**
+  - **Description** (optional)
+  - **Effort Estimate** (optional)
+  - **Additional Notes** (optional)
+- Organize tasks into **To Do**, **In Progress**, and **Done** columns.
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+### 🎨 **Color-Coded Deadlines**
+- Tasks are color-coded based on their urgency:
+  - 🟩 **Green**: Deadline is in more than a week.
+  - 🟨 **Yellow**: Deadline is in 4 to 7 days.
+  - 🟧 **Orange**: Deadline is in 2 to 3 days.
+  - 🟥 **Red**: Deadline is in less than 24 hours.
+  - 🟥 **Dark Red**: Deadline has passed.
+- A **legend** is available to explain the colors.
 
-## Code scaffolding
+### 🖱️ **Drag-and-Drop Functionality**
+- Move tasks between columns with an intuitive drag-and-drop interface.
+- Automatically update the task's status when moved to a new column.
 
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
+### 🖋️ **Task Details and Editing**
+- View detailed information about each task in a modal window.
+- Edit task details directly from the modal and save changes instantly.
 
-```bash
-ng generate component component-name
-```
+### 🏆 **Leaderboard of Urgent Tasks**
+- A visually appealing **Leaderboard** displays the most urgent tasks based on their deadlines.
+- Tasks are ranked from the most urgent (closest deadline) to the least urgent.
 
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
+### 💾 **Data Persistence**
+- All tasks and their statuses are saved in your browser's **Local Storage**.
+- Your tasks will remain intact even after refreshing or closing the app.
 
-```bash
-ng generate --help
-```
+---
 
-## Building
+## 🎯 Goal of TodoDue
 
-To build the project run:
+The goal of TodoDue is to provide students with a simple yet powerful tool to:
+- Stay organized with their homework.
+- Prioritize tasks effectively based on deadlines.
+- Visualize their workload and deadlines in a fun and interactive way.
 
-```bash
-ng build
-```
+---
 
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
+## 🤝 Contributing
 
-## Running unit tests
+We welcome contributions to make TodoDue even better! If you'd like to contribute:
+1. Fork the repository.
+2. Create a new branch for your feature or bug fix.
+3. Submit a pull request with a detailed description of your changes.
 
-To execute unit tests with the [Karma](https://karma-runner.github.io) test runner, use the following command:
-
-```bash
-ng test
-```
-
-## Running end-to-end tests
-
-For end-to-end (e2e) testing, run:
-
-```bash
-ng e2e
-```
-
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
-
-## Additional Resources
-
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+---
