@@ -24,8 +24,8 @@ export class TaskFormComponent {
   };
 
   createTask(): void {
-    if (!this.task.name || !this.task.course || !this.task.dueDate) {
-      alert('Please fill in all required fields: Task Name, Course, and Due Date.');
+    if (!this.task.name || !this.task.dueDate) {
+      alert('Please fill in all required fields');
       return;
     }
   
