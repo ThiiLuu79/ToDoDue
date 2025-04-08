@@ -13,12 +13,14 @@ export class TaskFormComponent {
   @Output() taskCreated = new EventEmitter<any>();
 
   task = {
+    id : 0,
     name: '',
     course: '',
     dueDate: '',
     description: '',
     effortEstimate: null,
-    notes: ''
+    notes: '',
+    status : 'TODO'
   };
 
   createTask(): void {
@@ -26,16 +28,21 @@ export class TaskFormComponent {
       alert('Please fill in all required fields: Task Name, Course, and Due Date.');
       return;
     }
-
+  
+    // Assign a unique ID as a number
+    this.task.id = Date.now(); // Keep it as a number
+  
     this.taskCreated.emit(this.task);
-
+  
     this.task = {
+      id: 0, // Reset ID to null
       name: '',
       course: '',
       dueDate: '',
       description: '',
       effortEstimate: null,
-      notes: ''
+      notes: '',
+      status: 'TODO'
     };
   }
 }

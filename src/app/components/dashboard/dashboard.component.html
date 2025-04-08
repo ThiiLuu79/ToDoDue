@@ -7,20 +7,50 @@
   <div class="row">
     <div class="col-md-4">
       <h3>To Do</h3>
-      <div class="task-column" id="todoColumn">
-        <app-task-card *ngFor="let task of todoTasks" [task]="task"></app-task-card>
+      <div
+        class="task-column"
+        id="todoColumn"
+        (dragover)="onDragOver($event)"
+        (drop)="onDrop($event, 'TODO')"
+      >
+        <app-task-card
+          *ngFor="let task of todoTasks"
+          [task]="task"
+          draggable="true"
+          (dragstart)="onDragStart($event, task)"
+        ></app-task-card>
       </div>
     </div>
     <div class="col-md-4">
       <h3>In Progress</h3>
-      <div class="task-column" id="inProgressColumn">
-        <!-- Task Cards will go here -->
+      <div
+        class="task-column"
+        id="inProgressColumn"
+        (dragover)="onDragOver($event)"
+        (drop)="onDrop($event, 'In Progress')"
+      >
+        <app-task-card
+          *ngFor="let task of inProgressTasks"
+          [task]="task"
+          draggable="true"
+          (dragstart)="onDragStart($event, task)"
+        ></app-task-card>
       </div>
     </div>
     <div class="col-md-4">
       <h3>Done</h3>
-      <div class="task-column" id="doneColumn">
-        <!-- Task Cards will go here -->
+      <div
+        class="task-column"
+        id="doneColumn"
+        (dragover)="onDragOver($event)"
+        (drop)="onDrop($event, 'Done')"
+      >
+        <app-task-card
+          *ngFor="let task of doneTasks"
+          [task]="task"
+          draggable="true"
+          (dragstart)="onDragStart($event, task)"
+        ></app-task-card>
       </div>
     </div>
   </div>

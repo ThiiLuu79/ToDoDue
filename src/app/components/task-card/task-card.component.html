@@ -1,6 +1,7 @@
 <div class="card" style="width: 18rem;">
   <div class="card-body">
     <h5 class="card-title">{{ task.name }}</h5>
+    <p class="card-text"><strong>Status:</strong> {{ task.status }}</p>
     <p class="card-text"><strong>Course:</strong> {{ task.course }}</p>
     <p class="card-text"><strong>Due:</strong> {{ task.dueDate }}</p>
     <p class="card-text"><strong>Description:</strong> {{ task.description || 'N/A' }}</p>
