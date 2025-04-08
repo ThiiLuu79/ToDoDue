@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { TaskCardComponent } from '../task-card/task-card.component';
 import { TaskFormComponent } from '../task-form/task-form.component';
@@ -11,12 +11,16 @@ import { TaskDetailsComponent } from '../task-details/task-details.component';
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.sass']
 })
-export class DashboardComponent {
+export class DashboardComponent implements OnInit {
   isTaskFormOpen = false;
   todoTasks: any[] = [];
   inProgressTasks: any[] = [];
   doneTasks: any[] = [];
   selectedTask: any = null;
+
+  ngOnInit(): void {
+    this.loadTasksFromLocalStorage(); // Load tasks when the component initializes
+  }
 
   openTaskForm(): void {
     this.isTaskFormOpen = true;
@@ -27,7 +31,7 @@ export class DashboardComponent {
   }
 
   openTaskDetails(task: any): void {
-    this.selectedTask = { ...task };
+    this.selectedTask = { ...task }; // Create a copy to avoid direct mutation
   }
 
   updateTask(updatedTask: any): void {
@@ -37,11 +41,12 @@ export class DashboardComponent {
         tasks[index] = updatedTask;
       }
     };
-  
+
     updateTaskInColumn(this.todoTasks);
     updateTaskInColumn(this.inProgressTasks);
     updateTaskInColumn(this.doneTasks);
-  
+
+    this.saveTasksToLocalStorage(); // Save tasks after updating
     this.selectedTask = null;
   }
 
@@ -51,7 +56,15 @@ export class DashboardComponent {
 
   addTaskToTodoColumn(task: any): void {
     this.todoTasks.push(task);
+    this.saveTasksToLocalStorage(); // Save tasks after adding
     this.closeTaskForm();
+  }
+
+  deleteTask(task: any): void {
+    this.todoTasks = this.todoTasks.filter(t => t.id !== task.id);
+    this.inProgressTasks = this.inProgressTasks.filter(t => t.id !== task.id);
+    this.doneTasks = this.doneTasks.filter(t => t.id !== task.id);
+    this.saveTasksToLocalStorage(); // Save tasks after deletion
   }
 
   onDragStart(event: DragEvent, task: any): void {
@@ -63,10 +76,10 @@ export class DashboardComponent {
     const taskData = event.dataTransfer?.getData('task');
     if (taskData) {
       const task = JSON.parse(taskData);
-  
+
       // Remove task from its current column
       this.removeTaskFromColumn(task);
-  
+
       // Update task status and add to the target column
       task.status = targetColumn;
       if (targetColumn === 'TODO') {
@@ -76,6 +89,8 @@ export class DashboardComponent {
       } else if (targetColumn === 'Done') {
         this.doneTasks.push(task);
       }
+
+      this.saveTasksToLocalStorage(); // Save tasks after moving
     }
   }
 
@@ -88,5 +103,28 @@ export class DashboardComponent {
     this.todoTasks = this.todoTasks.filter(t => t.id !== task.id);
     this.inProgressTasks = this.inProgressTasks.filter(t => t.id !== task.id);
     this.doneTasks = this.doneTasks.filter(t => t.id !== task.id);
+  }
+
+  saveTasksToLocalStorage(): void {
+    if (typeof window !== 'undefined' && window.localStorage) {
+      const tasks = {
+        todoTasks: this.todoTasks,
+        inProgressTasks: this.inProgressTasks,
+        doneTasks: this.doneTasks
+      };
+      localStorage.setItem('tasks', JSON.stringify(tasks));
+    }
+  }
+  
+  loadTasksFromLocalStorage(): void {
+    if (typeof window !== 'undefined' && window.localStorage) {
+      const tasks = localStorage.getItem('tasks');
+      if (tasks) {
+        const parsedTasks = JSON.parse(tasks);
+        this.todoTasks = parsedTasks.todoTasks || [];
+        this.inProgressTasks = parsedTasks.inProgressTasks || [];
+        this.doneTasks = parsedTasks.doneTasks || [];
+      }
+    }
   }
 }
