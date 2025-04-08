@@ -27,7 +27,22 @@ export class DashboardComponent {
   }
 
   openTaskDetails(task: any): void {
-    this.selectedTask = task;
+    this.selectedTask = { ...task };
+  }
+
+  updateTask(updatedTask: any): void {
+    const updateTaskInColumn = (tasks: any[]) => {
+      const index = tasks.findIndex(t => t.id === updatedTask.id);
+      if (index !== -1) {
+        tasks[index] = updatedTask;
+      }
+    };
+  
+    updateTaskInColumn(this.todoTasks);
+    updateTaskInColumn(this.inProgressTasks);
+    updateTaskInColumn(this.doneTasks);
+  
+    this.selectedTask = null;
   }
 
   closeTaskDetails(): void {

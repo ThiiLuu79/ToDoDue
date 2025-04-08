@@ -80,5 +80,6 @@
     *ngIf="selectedTask"
     [task]="selectedTask"
     (closeDetails)="closeTaskDetails()"
+    (taskUpdated)="updateTask($event)"
   ></app-task-details>
 </div>
