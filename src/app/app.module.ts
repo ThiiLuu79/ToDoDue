@@ -8,7 +8,9 @@ import { AppComponent } from './app.component'; // Standalone component
 import { DashboardComponent } from './components/dashboard/dashboard.component'; // Standalone component
 import { TaskFormComponent } from './components/task-form/task-form.component'; // Standalone component
 import { TaskCardComponent } from './components/task-card/task-card.component';
-import { TaskDetailsComponent } from './components/task-details/task-details.component'; // Standalone component
+import { TaskDetailsComponent } from './components/task-details/task-details.component';
+import { HeaderComponent } from './components/header/header.component';
+import { FooterComponent } from './components/footer/footer.component'; // Standalone component
 
 @NgModule({
   imports: [
@@ -20,7 +22,9 @@ import { TaskDetailsComponent } from './components/task-details/task-details.com
     DashboardComponent,
     TaskFormComponent,
     TaskCardComponent,
-    TaskDetailsComponent
+    TaskDetailsComponent,
+    HeaderComponent,
+    FooterComponent
   ],
   providers: [
     provideClientHydration(withEventReplay())
