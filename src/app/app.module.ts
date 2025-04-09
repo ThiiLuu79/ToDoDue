@@ -10,7 +10,8 @@ import { TaskFormComponent } from './components/task-form/task-form.component'; 
 import { TaskCardComponent } from './components/task-card/task-card.component';
 import { TaskDetailsComponent } from './components/task-details/task-details.component';
 import { HeaderComponent } from './components/header/header.component';
-import { FooterComponent } from './components/footer/footer.component'; // Standalone component
+import { FooterComponent } from './components/footer/footer.component';
+import { ColorLegendComponent } from './components/color-legend/color-legend.component'; // Standalone component
 
 @NgModule({
   imports: [
@@ -24,7 +25,8 @@ import { FooterComponent } from './components/footer/footer.component'; // Stand
     TaskCardComponent,
     TaskDetailsComponent,
     HeaderComponent,
-    FooterComponent
+    FooterComponent,
+    ColorLegendComponent
   ],
   providers: [
     provideClientHydration(withEventReplay())
