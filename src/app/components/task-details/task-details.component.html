@@ -10,7 +10,7 @@
           <p><strong>Name:</strong> {{ task.name }}</p>
           <p><strong>Due Date:</strong> {{ task.dueDate }}</p>
           <p><strong>Status:</strong> {{ task.status }}</p>
-          <p><strong>Course:</strong> {{ task.course }}</p>
+          <p><strong>Course:</strong> {{ task.course || 'N/A' }}</p>
           <p><strong>Description:</strong> {{ task.description || 'N/A' }}</p>
           <p><strong>Effort Estimate:</strong> {{ task.effortEstimate || 'N/A' }}</p>
           <p><strong>Notes:</strong> {{ task.notes || 'N/A' }}</p>
