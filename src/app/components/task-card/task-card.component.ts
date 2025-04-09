@@ -13,9 +13,11 @@ export class TaskCardComponent {
   @Output() deleteTask = new EventEmitter<any>();
   @Output() viewDetails = new EventEmitter<any>();
 
-
   onDelete(): void {
-    this.deleteTask.emit(this.task);
+    const isConfirmed = window.confirm(`Are you sure you want to delete the task "${this.task.name}"?`);
+    if (isConfirmed) {
+      this.deleteTask.emit(this.task);
+    }
   }
 
   onViewDetails(): void {
