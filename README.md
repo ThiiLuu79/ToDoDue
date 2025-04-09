@@ -9,8 +9,8 @@ Welcome to **TodoDue**, the app designed to help students stay on top of their h
 ### ✅ **Task Management**
 - Add tasks with details like:
   - **Name**
-  - **Course**
   - **Due Date**
+  - **Course** (optional)
   - **Description** (optional)
   - **Effort Estimate** (optional)
   - **Additional Notes** (optional)
