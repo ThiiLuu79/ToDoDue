@@ -44,3 +44,55 @@
       margin: 5px 0
       font-size: 0.9rem
       color: #99aab5
+.gold
+  background: linear-gradient(45deg, #d4af37, #ffd700)
+  background-size: 200% 200%
+  animation: metallic-shine 3s linear infinite
+  &:hover
+    animation: metallic-hover 1.5s linear infinite
+  color: #1a1a1a
+  .leaderboard-content h5
+    color: #000
+  .leaderboard-content p
+    color: #333
+
+.silver
+  background: linear-gradient(45deg, #b0b0b0, #e0e0e0)
+  background-size: 200% 200%
+  animation: metallic-shine 3s linear infinite
+  &:hover
+    animation: metallic-hover 1.5s linear infinite
+  color: #1a1a1a
+  .leaderboard-content h5
+    color: #000
+  .leaderboard-content p
+    color: #333
+
+.bronze
+  background: linear-gradient(45deg, #cd7f32, #b87333)
+  background-size: 200% 200%
+  animation: metallic-shine 3s linear infinite
+  &:hover
+    animation: metallic-hover 1.5s linear infinite
+  color: #1a1a1a
+  .leaderboard-content h5
+    color: #000
+  .leaderboard-content p
+    color: #333
+
+@keyframes metallic-shine
+  0% 
+    background-position: 0% 50%
+  50% 
+    background-position: 100% 50%
+  100% 
+    background-position: 0% 50%
+
+@keyframes metallic-hover
+  0% 
+    filter: brightness(1)
+  50% 
+    filter: brightness(1.5)
+  100% 
+    filter: brightness(1)
+

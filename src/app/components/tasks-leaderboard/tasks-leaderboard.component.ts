@@ -20,4 +20,15 @@ export class TasksLeaderboardComponent {
     return nonDoneTasks.sort((a, b) => new Date(a.dueDate).getTime() - new Date(b.dueDate).getTime());
   }
 
+  getTaskRankClass(index: number): string {
+    if (index === 0) {
+      return 'gold';
+    } else if (index === 1) {
+      return 'silver';
+    } else if (index === 2) {
+      return 'bronze';
+    }
+    return '';
+  }
+
 }

@@ -5,6 +5,7 @@
         <div
           class="leaderboard-item mb-3"
           *ngFor="let task of getUrgentTasks(); let i = index"
+          [ngClass]="getTaskRankClass(i)"
         >
           <div class="leaderboard-rank">{{ i + 1 }}</div>
           <div class="leaderboard-content">
