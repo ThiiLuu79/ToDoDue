@@ -43,20 +43,23 @@ Welcome to **TodoDue**, the app designed to help students stay on top of their h
 
 ---
 
+### 🔧 **Technologies**
+
+|    |  |
+|--------------|--------|
+| **Angular**      | ![Angular](https://img.shields.io/badge/Angular-DD0031?style=for-the-badge&logo=angular&logoColor=white) |
+| **TypeScript**   | ![TypeScript](https://img.shields.io/badge/TypeScript-3178C6?style=for-the-badge&logo=typescript&logoColor=white) |
+| **Bootstrap**    | ![Bootstrap](https://img.shields.io/badge/Bootstrap-7952B3?style=for-the-badge&logo=bootstrap&logoColor=white) |
+| **SASS / CSS**   | ![Sass](https://img.shields.io/badge/Sass-CC6699?style=for-the-badge&logo=sass&logoColor=white) ![CSS3](https://img.shields.io/badge/CSS3-1572B6?style=for-the-badge&logo=css3&logoColor=white) |
+| **HTML5**        | ![HTML5](https://img.shields.io/badge/HTML5-E34F26?style=for-the-badge&logo=html5&logoColor=white) |
+
+---
+
 ## 🎯 Goal of TodoDue
 
 The goal of TodoDue is to provide students with a simple yet powerful tool to:
 - Stay organized with their homework.
 - Prioritize tasks effectively based on deadlines.
 - Visualize their workload and deadlines in a fun and interactive way.
-
----
-
-## 🤝 Contributing
-
-We welcome contributions to make TodoDue even better! If you'd like to contribute:
-1. Fork the repository.
-2. Create a new branch for your feature or bug fix.
-3. Submit a pull request with a detailed description of your changes.
 
 ---
