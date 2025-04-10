@@ -25,6 +25,12 @@ export class TaskDetailsComponent {
   }
 
   saveChanges(): void {
+
+    if (!this.task.name) {
+      alert('Please fill in all required fields');
+      return;
+    }
+
     this.taskUpdated.emit(this.task);
     this.isEditing = false;
   }
