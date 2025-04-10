@@ -63,22 +63,11 @@
 
   <app-color-legend></app-color-legend>
 
-  <div class="leaderboard mt-5">
-    <h3 class="leaderboard-title">Tasks priorities</h3>
-    <div class="leaderboard-list">
-      <div
-        class="leaderboard-item"
-        *ngFor="let task of getUrgentTasks(); let i = index"
-      >
-        <div class="leaderboard-rank">{{ i + 1 }}</div>
-        <div class="leaderboard-content">
-          <h5>{{ task.name }}</h5>
-          <p><strong>Due:</strong> {{ task.dueDate }}</p>
-          <p><strong>Status:</strong> {{ task.status }}</p>
-        </div>
-      </div>
-    </div>
-  </div>
+  <app-tasks-leaderboard
+    [todoTasks]="todoTasks"
+    [inProgressTasks]="inProgressTasks"
+    [doneTasks]="doneTasks"
+  ></app-tasks-leaderboard>
 
   <!-- Task Form Modal -->
   <div class="modal" tabindex="-1" [class.show]="isTaskFormOpen" [style.display]="isTaskFormOpen ? 'block' : 'none'">

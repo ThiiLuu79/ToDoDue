@@ -1,0 +1,21 @@
+<div class="leaderboard mt-5">
+    <h3 class="leaderboard-title">Tasks Priorities</h3>
+    <div class="leaderboard-list">
+      <div *ngIf="getUrgentTasks().length > 0; else noTasks">
+        <div
+          class="leaderboard-item mb-3"
+          *ngFor="let task of getUrgentTasks(); let i = index"
+        >
+          <div class="leaderboard-rank">{{ i + 1 }}</div>
+          <div class="leaderboard-content">
+            <h5>{{ task.name }}</h5>
+            <p><strong>Due:</strong> {{ task.dueDate }}</p>
+            <p><strong>Status:</strong> {{ task.status }}</p>
+          </div>
+        </div>
+      </div>
+      <ng-template #noTasks>
+        <p class="text-center">There is nothing to do</p>
+      </ng-template>
+    </div>
+</div>

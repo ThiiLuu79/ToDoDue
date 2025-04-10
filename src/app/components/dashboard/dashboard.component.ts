@@ -4,11 +4,12 @@ import { TaskCardComponent } from '../task-card/task-card.component';
 import { TaskFormComponent } from '../task-form/task-form.component';
 import { TaskDetailsComponent } from '../task-details/task-details.component';
 import { ColorLegendComponent } from '../color-legend/color-legend.component';
+import { TasksLeaderboardComponent } from '../tasks-leaderboard/tasks-leaderboard.component';
 
 @Component({
   selector: 'app-dashboard',
   standalone: true,
-  imports: [CommonModule, TaskCardComponent, TaskFormComponent, TaskDetailsComponent, ColorLegendComponent],
+  imports: [CommonModule, TaskCardComponent, TaskFormComponent, TaskDetailsComponent, ColorLegendComponent, TasksLeaderboardComponent],
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.sass']
 })
@@ -104,17 +105,6 @@ export class DashboardComponent implements OnInit {
     this.todoTasks = this.todoTasks.filter(t => t.id !== task.id);
     this.inProgressTasks = this.inProgressTasks.filter(t => t.id !== task.id);
     this.doneTasks = this.doneTasks.filter(t => t.id !== task.id);
-  }
-
-  getUrgentTasks(): any[] {
-    // Combine all tasks into a single array
-    const allTasks = [...this.todoTasks, ...this.inProgressTasks];
-  
-    // Filter out tasks that are marked as "Done"
-    const nonDoneTasks = allTasks.filter(task => task.status !== 'Done');
-  
-    // Sort tasks by their due date (earliest first)
-    return nonDoneTasks.sort((a, b) => new Date(a.dueDate).getTime() - new Date(b.dueDate).getTime());
   }
 
   saveTasksToLocalStorage(): void {
