@@ -1,5 +1,9 @@
-<div class="leaderboard mt-5">
-    <h3 class="leaderboard-title">Tasks Priorities</h3>
+<h3 class="leaderboard-title">Tasks Priorities
+  <app-helptext
+    description="Your tasks are ranked by their priority. The higher the number, the more urgent the task is."
+  ></app-helptext>
+</h3>
+<div class="leaderboard">
     <div class="leaderboard-list">
       <div *ngIf="getUrgentTasks().length > 0; else noTasks">
         <div

@@ -1,12 +1,13 @@
 import { Component, Input } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { HelptextComponent } from '../helptext/helptext.component';
 
 @Component({
   selector: 'app-tasks-leaderboard',
   standalone: true,
   templateUrl: './tasks-leaderboard.component.html',
   styleUrl: './tasks-leaderboard.component.sass',
-  imports: [CommonModule]
+  imports: [CommonModule, HelptextComponent]
 })
 export class TasksLeaderboardComponent {
   @Input() todoTasks: any[] = [];
