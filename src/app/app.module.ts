@@ -12,7 +12,8 @@ import { TaskDetailsComponent } from './components/task-details/task-details.com
 import { HeaderComponent } from './components/header/header.component';
 import { FooterComponent } from './components/footer/footer.component';
 import { ColorLegendComponent } from './components/color-legend/color-legend.component';
-import { TasksLeaderboardComponent } from './components/tasks-leaderboard/tasks-leaderboard.component'; // Standalone component
+import { TasksLeaderboardComponent } from './components/tasks-leaderboard/tasks-leaderboard.component';
+import { HelptextComponent } from './components/helptext/helptext.component'; // Standalone component
 
 @NgModule({
   imports: [
@@ -28,7 +29,8 @@ import { TasksLeaderboardComponent } from './components/tasks-leaderboard/tasks-
     HeaderComponent,
     FooterComponent,
     ColorLegendComponent,
-    TasksLeaderboardComponent
+    TasksLeaderboardComponent,
+    HelptextComponent
   ],
   providers: [
     provideClientHydration(withEventReplay())

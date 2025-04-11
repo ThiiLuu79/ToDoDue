@@ -1,7 +1,10 @@
 <div class="dashboard">
   <header class="dashboard-header text-center">
-    <h2>Tasks Dashboard</h2>
-    <p class="dashboard-subtitle">Drag and drop tasks between columns to update their status.</p>
+    <h2>Tasks Dashboard
+      <app-helptext
+        description="You can drag and drop tasks between columns to update their status. You can also click on tasks to see their details."
+      ></app-helptext>
+    </h2>
     <button class="btn btn-primary mt-3 tododue-btn" (click)="openTaskForm()">Create Task</button>
   </header>
   <div class="row">

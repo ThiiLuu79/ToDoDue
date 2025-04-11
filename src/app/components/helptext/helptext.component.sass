@@ -1,0 +1,51 @@
+.helptext-container
+  position: relative
+  display: inline-block
+
+  .helptext-icon
+    width: 20px
+    height: 20px
+    border-radius: 50%
+    background-color: #5b6eae
+    color: white
+    text-align: center
+    line-height: 20px
+    font-size: 14px
+    font-weight: bold
+    cursor: pointer
+    position: relative
+    top: -5px
+
+  .helptext-tooltip
+    visibility: hidden
+    background-color: #333
+    color: #fff
+    text-align: center
+    border-radius: 5px
+    padding: 5px
+    position: absolute
+    z-index: 1
+    top: 125%
+    left: 50%
+    transform: translateX(-50%)
+    white-space: normal
+    width: 400px
+    max-width: 30vw
+    word-wrap: break-word
+    font-size: 15px
+    text-align: left
+    line-height: 1.5
+
+    /* Arrow above the tooltip */
+    &::after
+      content: ''
+      position: absolute
+      bottom: 100%
+      left: 50%
+      margin-left: -5px
+      border-width: 5px
+      border-style: solid
+      border-color: transparent transparent #333 transparent
+
+  &:hover .helptext-tooltip
+    visibility: visible
