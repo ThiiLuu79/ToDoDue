@@ -1,11 +1,12 @@
 import { Component, EventEmitter, Output } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
+import { HelptextComponent } from '../helptext/helptext.component';
 
 @Component({
   selector: 'app-task-form',
   standalone: true,
-  imports: [FormsModule, CommonModule], // Import FormsModule and CommonModule
+  imports: [FormsModule, CommonModule, HelptextComponent], // Import FormsModule and CommonModule
   templateUrl: './task-form.component.html',
   styleUrls: ['./task-form.component.sass']
 })
@@ -18,7 +19,7 @@ export class TaskFormComponent {
     course: '',
     dueDate: '',
     description: '',
-    effortEstimate: null,
+    effortEstimate: 0,
     notes: '',
     status : 'TODO'
   };
@@ -40,7 +41,7 @@ export class TaskFormComponent {
       course: '',
       dueDate: '',
       description: '',
-      effortEstimate: null,
+      effortEstimate: 0,
       notes: '',
       status: 'TODO'
     };

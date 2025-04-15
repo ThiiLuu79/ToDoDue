@@ -10,7 +10,8 @@
   </header>
   <div class="row">
     <div class="col-md-4">
-      <h3>To Do</h3>
+      <h3>To Do ({{ todoTasks.length }})</h3>
+      <p>Estimate effort : {{ calculateEstimate("TODO") }}</p>
       <div
         class="task-column"
         id="todoColumn"
@@ -28,7 +29,8 @@
       </div>
     </div>
     <div class="col-md-4">
-      <h3>In Progress</h3>
+      <h3>In Progress ({{ inProgressTasks.length }})</h3>
+      <p>Estimate effort : {{ calculateEstimate("In Progress") }}</p>
       <div
         class="task-column"
         id="inProgressColumn"
@@ -46,7 +48,8 @@
       </div>
     </div>
     <div class="col-md-4">
-      <h3>Done</h3>
+      <h3>Done ({{ doneTasks.length }})</h3>
+      <p>Estimate effort : {{ calculateEstimate("Done") }}</p>
       <div
         class="task-column"
         id="doneColumn"

@@ -131,4 +131,25 @@ export class DashboardComponent implements OnInit {
       }
     }
   }
+
+  calculateEstimate(column: string): number{
+    let totalEffort: number = 0;
+    let tasksList: any[] = [];
+
+    if(column === 'TODO'){
+      tasksList = this.todoTasks;
+    }else if(column === 'In Progress'){
+      tasksList = this.inProgressTasks;
+    }
+    else if(column === 'Done'){
+      tasksList = this.doneTasks;
+    }else{
+      return 0;
+    }
+
+    for(let task in tasksList){
+      totalEffort += tasksList[task].effortEstimate;
+    }
+    return totalEffort;
+  }
 }
