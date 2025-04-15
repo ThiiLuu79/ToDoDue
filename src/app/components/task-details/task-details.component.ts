@@ -26,7 +26,7 @@ export class TaskDetailsComponent {
 
   saveChanges(): void {
 
-    if (!this.task.name) {
+    if (!this.task.name || !this.task.dueDate) {
       alert('Please fill in all required fields');
       return;
     }

@@ -140,8 +140,7 @@ export class DashboardComponent implements OnInit {
       tasksList = this.todoTasks;
     }else if(column === 'In Progress'){
       tasksList = this.inProgressTasks;
-    }
-    else if(column === 'Done'){
+    }else if(column === 'Done'){
       tasksList = this.doneTasks;
     }else{
       return 0;

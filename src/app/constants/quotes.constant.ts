@@ -83,4 +83,3 @@ export const QUOTES: string[] = [
     "It is never too late to be what you might have been. —George Eliot",
     "I always wanted to be somebody, but now I realize I should have been more specific. —Lily Tomlin"
 ];
-  
