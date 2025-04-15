@@ -6,11 +6,12 @@ import { TaskDetailsComponent } from '../task-details/task-details.component';
 import { ColorLegendComponent } from '../color-legend/color-legend.component';
 import { TasksLeaderboardComponent } from '../tasks-leaderboard/tasks-leaderboard.component';
 import { HelptextComponent } from '../helptext/helptext.component';
+import { QuoteComponent } from '../quote/quote.component';
 
 @Component({
   selector: 'app-dashboard',
   standalone: true,
-  imports: [CommonModule, TaskCardComponent, TaskFormComponent, TaskDetailsComponent, ColorLegendComponent, TasksLeaderboardComponent, HelptextComponent],
+  imports: [CommonModule, TaskCardComponent, TaskFormComponent, TaskDetailsComponent, ColorLegendComponent, TasksLeaderboardComponent, HelptextComponent, QuoteComponent],
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.sass']
 })
