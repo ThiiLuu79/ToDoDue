@@ -1,6 +1,7 @@
 import { Component, Input } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { HelptextComponent } from '../helptext/helptext.component';
+import { Task } from '../../models/task.model';
 
 @Component({
   selector: 'app-tasks-leaderboard',
@@ -10,11 +11,11 @@ import { HelptextComponent } from '../helptext/helptext.component';
   imports: [CommonModule, HelptextComponent]
 })
 export class TasksLeaderboardComponent {
-  @Input() todoTasks: any[] = [];
-  @Input() inProgressTasks: any[] = [];
-  @Input() doneTasks: any[] = [];
+  @Input() todoTasks: Task[] = [];
+  @Input() inProgressTasks: Task[] = [];
+  @Input() doneTasks: Task[] = [];
 
-  getUrgentTasks(): any[] {
+  getUrgentTasks(): Task[] {
     const allTasks = [...this.todoTasks, ...this.inProgressTasks];
     const nonDoneTasks = allTasks.filter(task => task.status !== 'Done');
   
@@ -31,5 +32,4 @@ export class TasksLeaderboardComponent {
     }
     return '';
   }
-
 }

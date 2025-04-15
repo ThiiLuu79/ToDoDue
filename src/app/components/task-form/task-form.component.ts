@@ -2,6 +2,7 @@ import { Component, EventEmitter, Output } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { HelptextComponent } from '../helptext/helptext.component';
+import { Task } from '../../models/task.model';
 
 @Component({
   selector: 'app-task-form',
@@ -11,18 +12,22 @@ import { HelptextComponent } from '../helptext/helptext.component';
   styleUrls: ['./task-form.component.sass']
 })
 export class TaskFormComponent {
-  @Output() taskCreated = new EventEmitter<any>();
+  @Output() taskCreated = new EventEmitter<Task>();
 
-  task = {
-    id : 0,
-    name: '',
-    course: '',
-    dueDate: '',
-    description: '',
-    effortEstimate: 0,
-    notes: '',
-    status : 'TODO'
-  };
+  task: Task = this.createEmptyTask();
+
+  private createEmptyTask(): Task {
+    return {
+      id: 0,
+      name: '',
+      course: '',
+      dueDate: '',
+      description: '',
+      effortEstimate: 0,
+      notes: '',
+      status: 'TODO'
+    };
+  }
 
   createTask(): void {
     if (!this.task.name || !this.task.dueDate) {
@@ -35,15 +40,6 @@ export class TaskFormComponent {
   
     this.taskCreated.emit(this.task);
   
-    this.task = {
-      id: 0, // Reset ID to null
-      name: '',
-      course: '',
-      dueDate: '',
-      description: '',
-      effortEstimate: 0,
-      notes: '',
-      status: 'TODO'
-    };
+    this.task = this.createEmptyTask();
   }
 }

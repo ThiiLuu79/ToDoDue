@@ -1,5 +1,6 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { Task } from '../../models/task.model';
 
 @Component({
   selector: 'app-task-card',
@@ -9,9 +10,18 @@ import { CommonModule } from '@angular/common';
   styleUrls: ['./task-card.component.sass']
 })
 export class TaskCardComponent {
-  @Input() task: any;
-  @Output() deleteTask = new EventEmitter<any>();
-  @Output() viewDetails = new EventEmitter<any>();
+  @Input() task: Task = {
+    id: 0,
+    name: '',
+    course: '',
+    dueDate: '',
+    description: '',
+    effortEstimate: 0,
+    notes: '',
+    status: 'TODO'
+  };
+  @Output() deleteTask = new EventEmitter<Task>();
+  @Output() viewDetails = new EventEmitter<Task>();
 
   onDelete(): void {
     const isConfirmed = window.confirm(`Are you sure you want to delete the task "${this.task.name}"?`);

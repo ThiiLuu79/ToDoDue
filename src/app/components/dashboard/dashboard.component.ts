@@ -7,6 +7,7 @@ import { ColorLegendComponent } from '../color-legend/color-legend.component';
 import { TasksLeaderboardComponent } from '../tasks-leaderboard/tasks-leaderboard.component';
 import { HelptextComponent } from '../helptext/helptext.component';
 import { QuoteComponent } from '../quote/quote.component';
+import { Task } from '../../models/task.model';
 
 @Component({
   selector: 'app-dashboard',
@@ -17,13 +18,13 @@ import { QuoteComponent } from '../quote/quote.component';
 })
 export class DashboardComponent implements OnInit {
   isTaskFormOpen = false;
-  todoTasks: any[] = [];
-  inProgressTasks: any[] = [];
-  doneTasks: any[] = [];
-  selectedTask: any = null;
+  todoTasks: Task[] = [];
+  inProgressTasks: Task[] = [];
+  doneTasks: Task[] = [];
+  selectedTask: Task | null = null;
 
   ngOnInit(): void {
-    this.loadTasksFromLocalStorage(); // Load tasks when the component initializes
+    this.loadTasksFromLocalStorage();
   }
 
   openTaskForm(): void {
@@ -34,12 +35,12 @@ export class DashboardComponent implements OnInit {
     this.isTaskFormOpen = false;
   }
 
-  openTaskDetails(task: any): void {
-    this.selectedTask = { ...task }; // Create a copy to avoid direct mutation
+  openTaskDetails(task: Task): void {
+    this.selectedTask = { ...task };
   }
 
-  updateTask(updatedTask: any): void {
-    const updateTaskInColumn = (tasks: any[]) => {
+  updateTask(updatedTask: Task): void {
+    const updateTaskInColumn = (tasks: Task[]) => {
       const index = tasks.findIndex(t => t.id === updatedTask.id);
       if (index !== -1) {
         tasks[index] = updatedTask;
@@ -50,7 +51,7 @@ export class DashboardComponent implements OnInit {
     updateTaskInColumn(this.inProgressTasks);
     updateTaskInColumn(this.doneTasks);
 
-    this.saveTasksToLocalStorage(); // Save tasks after updating
+    this.saveTasksToLocalStorage();
     this.selectedTask = null;
   }
 
@@ -58,20 +59,20 @@ export class DashboardComponent implements OnInit {
     this.selectedTask = null;
   }
 
-  addTaskToTodoColumn(task: any): void {
+  addTaskToTodoColumn(task: Task): void {
     this.todoTasks.push(task);
-    this.saveTasksToLocalStorage(); // Save tasks after adding
+    this.saveTasksToLocalStorage();
     this.closeTaskForm();
   }
 
-  deleteTask(task: any): void {
+  deleteTask(task: Task): void {
     this.todoTasks = this.todoTasks.filter(t => t.id !== task.id);
     this.inProgressTasks = this.inProgressTasks.filter(t => t.id !== task.id);
     this.doneTasks = this.doneTasks.filter(t => t.id !== task.id);
     this.saveTasksToLocalStorage(); // Save tasks after deletion
   }
 
-  onDragStart(event: DragEvent, task: any): void {
+  onDragStart(event: DragEvent, task: Task): void {
     event.dataTransfer?.setData('task', JSON.stringify(task));
   }
 
@@ -81,10 +82,8 @@ export class DashboardComponent implements OnInit {
     if (taskData) {
       const task = JSON.parse(taskData);
 
-      // Remove task from its current column
       this.removeTaskFromColumn(task);
 
-      // Update task status and add to the target column
       task.status = targetColumn;
       if (targetColumn === 'TODO') {
         this.todoTasks.push(task);
@@ -94,7 +93,7 @@ export class DashboardComponent implements OnInit {
         this.doneTasks.push(task);
       }
 
-      this.saveTasksToLocalStorage(); // Save tasks after moving
+      this.saveTasksToLocalStorage();
     }
   }
 
@@ -102,8 +101,7 @@ export class DashboardComponent implements OnInit {
     event.preventDefault();
   }
 
-  removeTaskFromColumn(task: any): void {
-    // Remove the task from all columns by matching the ID
+  removeTaskFromColumn(task: Task): void {
     this.todoTasks = this.todoTasks.filter(t => t.id !== task.id);
     this.inProgressTasks = this.inProgressTasks.filter(t => t.id !== task.id);
     this.doneTasks = this.doneTasks.filter(t => t.id !== task.id);
@@ -134,7 +132,7 @@ export class DashboardComponent implements OnInit {
 
   calculateEstimate(column: string): number{
     let totalEffort: number = 0;
-    let tasksList: any[] = [];
+    let tasksList: Task[] = [];
 
     if(column === 'TODO'){
       tasksList = this.todoTasks;

@@ -1,6 +1,7 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { Task } from '../../models/task.model';
 
 @Component({
   selector: 'app-task-details',
@@ -10,9 +11,18 @@ import { FormsModule } from '@angular/forms';
   styleUrls: ['./task-details.component.sass']
 })
 export class TaskDetailsComponent {
-  @Input() task: any;
+  @Input() task: Task = {
+    id: 0,
+    name: '',
+    course: '',
+    dueDate: '',
+    description: '',
+    effortEstimate: 0,
+    notes: '',
+    status: 'TODO'
+  };
   @Output() closeDetails = new EventEmitter<void>();
-  @Output() taskUpdated = new EventEmitter<any>();
+  @Output() taskUpdated = new EventEmitter<Task>();
 
   isEditing = false;
 
