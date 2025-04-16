@@ -37,6 +37,9 @@ Welcome to **TodoDue**, the app designed to help students stay on top of their h
 - A visually appealing **Leaderboard** displays the most urgent tasks based on their deadlines.
 - Tasks are ranked from the most urgent (closest deadline) to the least urgent.
 
+### 📅 **Calendar View**
+- A **Calendar** showing tasks to do for the current and next months.
+
 ### 💾 **Data Persistence**
 - All tasks and their statuses are saved in your browser's **Local Storage**.
 - Your tasks will remain intact even after refreshing or closing the app.
