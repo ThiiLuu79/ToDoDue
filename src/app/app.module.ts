@@ -15,6 +15,7 @@ import { ColorLegendComponent } from './components/color-legend/color-legend.com
 import { TasksLeaderboardComponent } from './components/tasks-leaderboard/tasks-leaderboard.component';
 import { HelptextComponent } from './components/helptext/helptext.component';
 import { QuoteComponent } from './components/quote/quote.component';
+import { CalendarViewComponent } from './components/calendar-view/calendar-view.component';
 
 @NgModule({
   imports: [
@@ -32,7 +33,8 @@ import { QuoteComponent } from './components/quote/quote.component';
     ColorLegendComponent,
     TasksLeaderboardComponent,
     HelptextComponent,
-    QuoteComponent
+    QuoteComponent,
+    CalendarViewComponent
   ],
   providers: [
     provideClientHydration(withEventReplay())

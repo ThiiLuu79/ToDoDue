@@ -8,11 +8,12 @@ import { TasksLeaderboardComponent } from '../tasks-leaderboard/tasks-leaderboar
 import { HelptextComponent } from '../helptext/helptext.component';
 import { QuoteComponent } from '../quote/quote.component';
 import { Task } from '../../models/task.model';
+import { CalendarViewComponent } from '../calendar-view/calendar-view.component';
 
 @Component({
   selector: 'app-dashboard',
   standalone: true,
-  imports: [CommonModule, TaskCardComponent, TaskFormComponent, TaskDetailsComponent, ColorLegendComponent, TasksLeaderboardComponent, HelptextComponent, QuoteComponent],
+  imports: [CommonModule, TaskCardComponent, TaskFormComponent, TaskDetailsComponent, ColorLegendComponent, TasksLeaderboardComponent, HelptextComponent, QuoteComponent, CalendarViewComponent],
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.sass']
 })
@@ -149,4 +150,9 @@ export class DashboardComponent implements OnInit {
     }
     return totalEffort;
   }
+
+  getAllTasks(): Task[] {
+    return [...this.todoTasks, ...this.inProgressTasks, ...this.doneTasks];
+  }
+
 }

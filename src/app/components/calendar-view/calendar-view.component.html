@@ -1,0 +1,35 @@
+<h3 class="calendar-title">Tasks Calendar</h3>
+<div class="calendar-container">
+    <h2 class="month-title">
+      {{ currentMonth | date: 'MMMM yyyy' }}
+    </h2>
+    
+    <div class="calendar-navigation">
+      <button class="btn btn-primary mx-3 tododue-btn" (click)="previousMonth()">&lt; Prev</button>
+      <button class="btn btn-primary mx-3 tododue-btn" (click)="currentMonthView()">Today</button>
+      <button class="btn btn-primary mx-3 tododue-btn" (click)="nextMonth()">Next &gt;</button>
+    </div>
+  
+    <div class="calendar-grid">
+      <div class="day-name" *ngFor="let day of ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat']">
+        {{ day }}
+      </div>
+  
+      <ng-container *ngFor="let week of weeks">
+        <ng-container *ngFor="let day of week">
+          <div class="calendar-cell" [class.empty]="!day.date" [class.today]="isToday(day.date)">
+            <div *ngIf="day.date" class="day-number">
+              {{ getDayLabel(day.date) }}
+            </div>
+            <div class="task-chip"
+                 *ngFor="let task of day.tasks"
+                 [style.backgroundColor]="getTaskColor(task.dueDate)"
+                 title="{{ task.name }}">
+              {{ task.name }}
+            </div>
+          </div>
+        </ng-container>
+      </ng-container>
+    </div>
+</div>
+  

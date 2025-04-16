@@ -76,6 +76,10 @@
     [doneTasks]="doneTasks"
   ></app-tasks-leaderboard>
 
+  <app-calendar-view
+    [tasks]="getAllTasks()"
+  ></app-calendar-view>
+
   <!-- Task Form Modal -->
   <div class="modal" tabindex="-1" [class.show]="isTaskFormOpen" [style.display]="isTaskFormOpen ? 'block' : 'none'">
     <div class="modal-dialog">
