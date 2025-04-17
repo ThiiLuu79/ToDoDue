@@ -2,6 +2,7 @@ import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Task } from '../../models/task.model';
+import { TaskStatus } from '../../enum/task-status.enum';
 
 @Component({
   selector: 'app-task-details',
@@ -19,7 +20,7 @@ export class TaskDetailsComponent {
     description: '',
     effortEstimate: 0,
     notes: '',
-    status: 'TODO'
+    status: TaskStatus.TODO
   };
   @Output() closeDetails = new EventEmitter<void>();
   @Output() taskUpdated = new EventEmitter<Task>();

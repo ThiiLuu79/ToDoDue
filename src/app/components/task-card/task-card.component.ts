@@ -1,6 +1,7 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Task } from '../../models/task.model';
+import { TaskStatus } from '../../enum/task-status.enum';
 
 @Component({
   selector: 'app-task-card',
@@ -18,7 +19,7 @@ export class TaskCardComponent {
     description: '',
     effortEstimate: 0,
     notes: '',
-    status: 'TODO'
+    status: TaskStatus.TODO
   };
   @Output() deleteTask = new EventEmitter<Task>();
   @Output() viewDetails = new EventEmitter<Task>();

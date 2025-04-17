@@ -1,3 +1,5 @@
+import { TaskStatus } from "../enum/task-status.enum";
+
 export interface Task {
     id: number;
     name: string;
@@ -6,5 +8,5 @@ export interface Task {
     description: string;
     effortEstimate: number;
     notes: string;
-    status: 'TODO' | 'In Progress' | 'Done';
+    status: TaskStatus;
 }

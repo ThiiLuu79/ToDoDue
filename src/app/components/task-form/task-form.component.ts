@@ -3,6 +3,7 @@ import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { HelptextComponent } from '../helptext/helptext.component';
 import { Task } from '../../models/task.model';
+import { TaskStatus } from '../../enum/task-status.enum';
 
 @Component({
   selector: 'app-task-form',
@@ -25,7 +26,7 @@ export class TaskFormComponent {
       description: '',
       effortEstimate: 0,
       notes: '',
-      status: 'TODO'
+      status: TaskStatus.TODO
     };
   }
 
