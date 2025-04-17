@@ -9,6 +9,7 @@ import { HelptextComponent } from '../helptext/helptext.component';
 import { QuoteComponent } from '../quote/quote.component';
 import { Task } from '../../models/task.model';
 import { CalendarViewComponent } from '../calendar-view/calendar-view.component';
+import { TaskStatus } from '../../enum/task-status.enum';
 
 @Component({
   selector: 'app-dashboard',
@@ -70,7 +71,7 @@ export class DashboardComponent implements OnInit {
     this.todoTasks = this.todoTasks.filter(t => t.id !== task.id);
     this.inProgressTasks = this.inProgressTasks.filter(t => t.id !== task.id);
     this.doneTasks = this.doneTasks.filter(t => t.id !== task.id);
-    this.saveTasksToLocalStorage(); // Save tasks after deletion
+    this.saveTasksToLocalStorage();
   }
 
   onDragStart(event: DragEvent, task: Task): void {
@@ -86,11 +87,11 @@ export class DashboardComponent implements OnInit {
       this.removeTaskFromColumn(task);
 
       task.status = targetColumn;
-      if (targetColumn === 'TODO') {
+      if (targetColumn === TaskStatus.TODO) {
         this.todoTasks.push(task);
-      } else if (targetColumn === 'In Progress') {
+      } else if (targetColumn === TaskStatus.IN_PROGRESS) {
         this.inProgressTasks.push(task);
-      } else if (targetColumn === 'Done') {
+      } else if (targetColumn === TaskStatus.DONE) {
         this.doneTasks.push(task);
       }
 
@@ -135,11 +136,11 @@ export class DashboardComponent implements OnInit {
     let totalEffort: number = 0;
     let tasksList: Task[] = [];
 
-    if(column === 'TODO'){
+    if(column === TaskStatus.TODO){
       tasksList = this.todoTasks;
-    }else if(column === 'In Progress'){
+    }else if(column === TaskStatus.IN_PROGRESS){
       tasksList = this.inProgressTasks;
-    }else if(column === 'Done'){
+    }else if(column === TaskStatus.DONE){
       tasksList = this.doneTasks;
     }else{
       return 0;

@@ -2,6 +2,7 @@ import { Component, Input } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { HelptextComponent } from '../helptext/helptext.component';
 import { Task } from '../../models/task.model';
+import { TaskStatus } from '../../enum/task-status.enum';
 
 @Component({
   selector: 'app-tasks-leaderboard',
@@ -17,7 +18,7 @@ export class TasksLeaderboardComponent {
 
   getUrgentTasks(): Task[] {
     const allTasks = [...this.todoTasks, ...this.inProgressTasks];
-    const nonDoneTasks = allTasks.filter(task => task.status !== 'Done');
+    const nonDoneTasks = allTasks.filter(task => task.status !== TaskStatus.DONE);
   
     return nonDoneTasks.sort((a, b) => new Date(a.dueDate).getTime() - new Date(b.dueDate).getTime());
   }
