@@ -1,4 +1,4 @@
-import { NgModule, isDevMode } from '@angular/core';
+import { NgModule } from '@angular/core';
 import { BrowserModule, provideClientHydration, withEventReplay } from '@angular/platform-browser';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
@@ -17,10 +17,6 @@ import { HelptextComponent } from './components/helptext/helptext.component';
 import { QuoteComponent } from './components/quote/quote.component';
 import { CalendarViewComponent } from './components/calendar-view/calendar-view.component';
 import { TaskViewsComponent } from './components/task-views/task-views.component';
-import { StoreModule } from '@ngrx/store';
-import { StoreDevtoolsModule } from '@ngrx/store-devtools';
-import { EffectsModule } from '@ngrx/effects';
-import { calendarReducer } from './state/calendar/calendar.reducer';
 
 @NgModule({
   imports: [
@@ -40,10 +36,7 @@ import { calendarReducer } from './state/calendar/calendar.reducer';
     HelptextComponent,
     QuoteComponent,
     CalendarViewComponent,
-    TaskViewsComponent,
-    StoreModule.forRoot({ calendar: calendarReducer }, {}),
-    StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: !isDevMode() }),
-    EffectsModule.forRoot([])
+    TaskViewsComponent
   ],
   providers: [
     provideClientHydration(withEventReplay())
