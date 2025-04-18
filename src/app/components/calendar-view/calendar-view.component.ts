@@ -1,13 +1,16 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Task } from '../../models/task.model';
+import { HelptextComponent } from '../helptext/helptext.component';
+import { DueDateTypes } from '../../enum/due-date-types.enum';
+import { DueDateColors } from '../../enum/due-date-colors.enum';
 
 @Component({
   selector: 'app-calendar-view',
   standalone: true,
   templateUrl: './calendar-view.component.html',
   styleUrls: ['./calendar-view.component.sass'],
-  imports: [CommonModule]
+  imports: [CommonModule, HelptextComponent]
 })
 export class CalendarViewComponent implements OnInit {
   currentMonth: Date = new Date();
@@ -85,16 +88,16 @@ export class CalendarViewComponent implements OnInit {
     const timeDiff = taskDueDate.getTime() - currentDate.getTime();
     const daysDiff = Math.ceil(timeDiff / (1000 * 60 * 60 * 24));
   
-    if (daysDiff > 7) {
-      return 'green';
-    } else if (daysDiff > 3) {
-      return 'yellow';
-    } else if (daysDiff > 1) {
-      return 'orange';
-    } else if (daysDiff >= 0) {
-      return 'red';
+    if (daysDiff > DueDateTypes.MORE_THAN_7_DAYS) {
+      return DueDateColors.MORE_THAN_7_DAYS;
+    } else if (daysDiff >= DueDateTypes.BETWEEN_4_AND_7_DAYS) {
+      return DueDateColors.BETWEEN_4_AND_7_DAYS;
+    } else if (daysDiff >= DueDateTypes.BETWEEN_2_AND_3_DAYS) {
+      return DueDateColors.BETWEEN_2_AND_3_DAYS;
+    } else if (daysDiff >= DueDateTypes.PAST_DUE) {
+      return DueDateColors.LESS_THAN_24_HOURS;
     } else {
-      return 'darkred';
+      return DueDateColors.PAST_DUE;
     }
   }
 }

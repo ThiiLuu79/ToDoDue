@@ -2,6 +2,8 @@ import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Task } from '../../models/task.model';
 import { TaskStatus } from '../../enum/task-status.enum';
+import { DueDateTypes } from '../../enum/due-date-types.enum';
+import { DueDateColors } from '../../enum/due-date-colors.enum';
 
 @Component({
   selector: 'app-task-card',
@@ -39,18 +41,18 @@ export class TaskCardComponent {
     const currentDate = new Date();
     const dueDate = new Date(this.task.dueDate);
     const timeDiff = dueDate.getTime() - currentDate.getTime();
-    const daysDiff = Math.ceil(timeDiff / (1000 * 60 * 60 * 24)); // Convert milliseconds to days
-
-    if (daysDiff > 7) {
-      return 'green'; // More than 7 days
-    } else if (daysDiff > 3) {
-      return 'yellow'; // Between 4 and 7 days
-    } else if (daysDiff > 1) {
-      return 'orange'; // Between 2 and 3 days
-    } else if (daysDiff >= 0) {
-      return 'red'; // Less than 24 hours
+    const daysDiff = Math.ceil(timeDiff / (1000 * 60 * 60 * 24));
+    
+    if (daysDiff > DueDateTypes.MORE_THAN_7_DAYS) {
+      return DueDateColors.MORE_THAN_7_DAYS;
+    } else if (daysDiff >= DueDateTypes.BETWEEN_4_AND_7_DAYS) {
+      return DueDateColors.BETWEEN_4_AND_7_DAYS;
+    } else if (daysDiff >= DueDateTypes.BETWEEN_2_AND_3_DAYS) {
+      return DueDateColors.BETWEEN_2_AND_3_DAYS;
+    } else if (daysDiff >= DueDateTypes.PAST_DUE) {
+      return DueDateColors.LESS_THAN_24_HOURS;
     } else {
-      return 'darkred'; // Past due
+      return DueDateColors.PAST_DUE;
     }
   }
 }
