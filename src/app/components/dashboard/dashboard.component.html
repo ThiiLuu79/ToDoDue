@@ -70,15 +70,11 @@
 
   <app-color-legend></app-color-legend>
 
-  <app-tasks-leaderboard
+  <app-task-views
     [todoTasks]="todoTasks"
     [inProgressTasks]="inProgressTasks"
     [doneTasks]="doneTasks"
-  ></app-tasks-leaderboard>
-
-  <app-calendar-view
-    [tasks]="getAllTasks()"
-  ></app-calendar-view>
+  ></app-task-views>
 
   <!-- Task Form Modal -->
   <div class="modal" tabindex="-1" [class.show]="isTaskFormOpen" [style.display]="isTaskFormOpen ? 'block' : 'none'">

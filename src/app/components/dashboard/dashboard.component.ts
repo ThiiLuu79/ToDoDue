@@ -4,17 +4,16 @@ import { TaskCardComponent } from '../task-card/task-card.component';
 import { TaskFormComponent } from '../task-form/task-form.component';
 import { TaskDetailsComponent } from '../task-details/task-details.component';
 import { ColorLegendComponent } from '../color-legend/color-legend.component';
-import { TasksLeaderboardComponent } from '../tasks-leaderboard/tasks-leaderboard.component';
 import { HelptextComponent } from '../helptext/helptext.component';
 import { QuoteComponent } from '../quote/quote.component';
 import { Task } from '../../models/task.model';
-import { CalendarViewComponent } from '../calendar-view/calendar-view.component';
 import { TaskStatus } from '../../enum/task-status.enum';
+import { TaskViewsComponent } from '../task-views/task-views.component';
 
 @Component({
   selector: 'app-dashboard',
   standalone: true,
-  imports: [CommonModule, TaskCardComponent, TaskFormComponent, TaskDetailsComponent, ColorLegendComponent, TasksLeaderboardComponent, HelptextComponent, QuoteComponent, CalendarViewComponent],
+  imports: [CommonModule, TaskCardComponent, TaskFormComponent, TaskDetailsComponent, ColorLegendComponent, HelptextComponent, QuoteComponent, TaskViewsComponent],
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.sass']
 })
@@ -151,9 +150,4 @@ export class DashboardComponent implements OnInit {
     }
     return totalEffort;
   }
-
-  getAllTasks(): Task[] {
-    return [...this.todoTasks, ...this.inProgressTasks, ...this.doneTasks];
-  }
-
 }

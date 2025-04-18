@@ -16,6 +16,7 @@ import { TasksLeaderboardComponent } from './components/tasks-leaderboard/tasks-
 import { HelptextComponent } from './components/helptext/helptext.component';
 import { QuoteComponent } from './components/quote/quote.component';
 import { CalendarViewComponent } from './components/calendar-view/calendar-view.component';
+import { TaskViewsComponent } from './components/task-views/task-views.component';
 
 @NgModule({
   imports: [
@@ -34,7 +35,8 @@ import { CalendarViewComponent } from './components/calendar-view/calendar-view.
     TasksLeaderboardComponent,
     HelptextComponent,
     QuoteComponent,
-    CalendarViewComponent
+    CalendarViewComponent,
+    TaskViewsComponent
   ],
   providers: [
     provideClientHydration(withEventReplay())
