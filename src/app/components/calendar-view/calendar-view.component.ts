@@ -1,9 +1,13 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, Signal, computed, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Task } from '../../models/task.model';
 import { HelptextComponent } from '../helptext/helptext.component';
 import { DueDateTypes } from '../../enum/due-date-types.enum';
 import { DueDateColors } from '../../enum/due-date-colors.enum';
+import { Store } from '@ngrx/store';
+import { selectCurrentMonth } from '../../state/calendar/calendar.selector';
+import { setMonth } from '../../state/calendar/calendar.action';
+import { toSignal } from '@angular/core/rxjs-interop';
 
 @Component({
   selector: 'app-calendar-view',
@@ -13,36 +17,43 @@ import { DueDateColors } from '../../enum/due-date-colors.enum';
   imports: [CommonModule, HelptextComponent]
 })
 export class CalendarViewComponent implements OnInit {
-  currentMonth: Date = new Date();
-  weeks: { date: Date; tasks: Task[] }[][] = [];
   @Input() tasks: Task[] = [];
+
+  currentMonthSignal: Signal<Date>;
+  weeks = signal<{ date: Date; tasks: Task[] }[][]>([]);
+
+  constructor(private store: Store) {
+    this.currentMonthSignal = toSignal(this.store.select(selectCurrentMonth), { initialValue: new Date() });
+  }
 
   ngOnInit(): void {
     this.generateCalendar();
   }
 
-  ngOnChanges(): void {
-    this.generateCalendar();
-  }
-
   previousMonth(): void {
-    this.currentMonth = new Date(this.currentMonth.setMonth(this.currentMonth.getMonth() - 1));
+    const newMonth = new Date(this.currentMonthSignal().getTime());
+    newMonth.setMonth(newMonth.getMonth() - 1);
+    this.store.dispatch(setMonth({ month: newMonth }));
     this.generateCalendar();
   }
 
   nextMonth(): void {
-    this.currentMonth = new Date(this.currentMonth.setMonth(this.currentMonth.getMonth() + 1));
+    const newMonth = new Date(this.currentMonthSignal().getTime());
+    newMonth.setMonth(newMonth.getMonth() + 1);
+    this.store.dispatch(setMonth({ month: newMonth }));
     this.generateCalendar();
   }
 
   currentMonthView(): void {
-    this.currentMonth = new Date();
+    const today = new Date();
+    this.store.dispatch(setMonth({ month: today }));
     this.generateCalendar();
   }
 
   private generateCalendar(): void {
-    const startOfMonth = new Date(this.currentMonth.getFullYear(), this.currentMonth.getMonth(), 1);
-    const endOfMonth = new Date(this.currentMonth.getFullYear(), this.currentMonth.getMonth() + 1, 0);
+    const currentMonth = this.currentMonthSignal();
+    const startOfMonth = new Date(currentMonth.getFullYear(), currentMonth.getMonth(), 1);
+    const endOfMonth = new Date(currentMonth.getFullYear(), currentMonth.getMonth() + 1, 0);
 
     const startDay = startOfMonth.getDay();
     const daysInMonth = endOfMonth.getDate();
@@ -54,17 +65,18 @@ export class CalendarViewComponent implements OnInit {
     }
 
     for (let day = 1; day <= daysInMonth; day++) {
-      const date = new Date(this.currentMonth.getFullYear(), this.currentMonth.getMonth(), day);
+      const date = new Date(currentMonth.getFullYear(), currentMonth.getMonth(), day);
       const iso = date.toISOString().split('T')[0];
-
       const tasksForDay = this.tasks.filter(task => task.dueDate.startsWith(iso));
       calendar.push({ date, tasks: tasksForDay });
     }
 
-    this.weeks = [];
+    const weekChunks: { date: Date; tasks: Task[] }[][] = [];
     for (let i = 0; i < calendar.length; i += 7) {
-      this.weeks.push(calendar.slice(i, i + 7));
+      weekChunks.push(calendar.slice(i, i + 7));
     }
+
+    this.weeks.set(weekChunks);
   }
 
   getDayLabel(date: Date | null): string {
