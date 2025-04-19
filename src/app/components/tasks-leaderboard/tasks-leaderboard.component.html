@@ -15,10 +15,10 @@
 
 <div class="leaderboard mb-5">
     <div class="leaderboard-list">
-      <div *ngIf="getTaskRanking('dueDate').length > 0; else noTasks">
+      <div *ngIf="getTaskRanking(currentSort).length > 0; else noTasks">
         <div
           class="leaderboard-item mb-3"
-          *ngFor="let task of getTaskRanking('dueDate'); let i = index"
+          *ngFor="let task of getTaskRanking(currentSort); let i = index"
           [ngClass]="getTaskRankClass(i)"
         >
           <div class="leaderboard-rank">{{ i + 1 }}</div>
