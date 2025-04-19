@@ -15,7 +15,7 @@
 
 <div class="leaderboard mb-5">
     <div class="leaderboard-list">
-      <div *ngIf="getTaskRanking(currentSort).length > 0; else noTasks">
+      <div *ngIf="(currentSort$ | async) as currentSort; else noTasks">
         <div
           class="leaderboard-item mb-3"
           *ngFor="let task of getTaskRanking(currentSort); let i = index"

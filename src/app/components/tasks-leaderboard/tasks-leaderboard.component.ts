@@ -4,6 +4,10 @@ import { HelptextComponent } from '../helptext/helptext.component';
 import { Task } from '../../models/task.model';
 import { TaskStatus } from '../../enum/task-status.enum';
 import { TaskRankingTypes } from '../../enum/task-ranking-types.enum';
+import { Store } from '@ngrx/store';
+import { setSortType } from '../../state/rank-sort/rank-sort.action';
+import { selectCurrentSortType } from '../../state/rank-sort/rank-sort.selector';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-tasks-leaderboard',
@@ -17,17 +21,18 @@ export class TasksLeaderboardComponent {
   @Input() inProgressTasks: Task[] = [];
   @Input() doneTasks: Task[] = [];
 
-  currentSort: string = TaskRankingTypes.DUE_DATE;
+  currentSort$: Observable<string>;
 
-
-  sortByDueDate(): void {
-    this.currentSort = TaskRankingTypes.DUE_DATE;
-    console.log(this.currentSort);
+  constructor(private store: Store) {
+    this.currentSort$ = this.store.select(selectCurrentSortType);
   }
 
-  sortByEstimateEffort(): void{
-    this.currentSort = TaskRankingTypes.EFFORT_ESTIMATE;
-    console.log(this.currentSort);
+  sortByDueDate(): void {
+    this.store.dispatch(setSortType({ sortType: TaskRankingTypes.DUE_DATE }));
+  }
+
+  sortByEstimateEffort(): void {
+    this.store.dispatch(setSortType({ sortType: TaskRankingTypes.EFFORT_ESTIMATE }));
   }
 
   getUrgentTasksByDueDate(): Task[] {
@@ -45,9 +50,9 @@ export class TasksLeaderboardComponent {
   }
 
   getTaskRanking(sort: string): Task[] {
-    if(sort === TaskRankingTypes.DUE_DATE) {
+    if (sort === TaskRankingTypes.DUE_DATE) {
       return this.getUrgentTasksByDueDate();
-    }else if(sort === TaskRankingTypes.EFFORT_ESTIMATE) {
+    } else if (sort === TaskRankingTypes.EFFORT_ESTIMATE) {
       return this.getUrgentTasksByEstimateEffort();
     }
     return [];
