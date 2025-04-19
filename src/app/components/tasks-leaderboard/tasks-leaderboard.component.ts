@@ -17,6 +17,19 @@ export class TasksLeaderboardComponent {
   @Input() inProgressTasks: Task[] = [];
   @Input() doneTasks: Task[] = [];
 
+  currentSort: string = TaskRankingTypes.DUE_DATE;
+
+
+  sortByDueDate(): void {
+    this.currentSort = TaskRankingTypes.DUE_DATE;
+    console.log(this.currentSort);
+  }
+
+  sortByEstimateEffort(): void{
+    this.currentSort = TaskRankingTypes.EFFORT_ESTIMATE;
+    console.log(this.currentSort);
+  }
+
   getUrgentTasksByDueDate(): Task[] {
     const allTasks = [...this.todoTasks, ...this.inProgressTasks];
     const nonDoneTasks = allTasks.filter(task => task.status !== TaskStatus.DONE);

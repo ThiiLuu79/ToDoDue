@@ -34,8 +34,8 @@ Welcome to **TodoDue**, the app designed to help students stay on top of their h
 - Edit task details directly from the modal and save changes instantly.
 
 ### 🏆 **Leaderboard of Urgent Tasks**
-- A visually appealing **Leaderboard** displays the most urgent tasks based on their deadlines.
-- Tasks are ranked from the most urgent (closest deadline) to the least urgent.
+- A visually appealing **Leaderboard** displays the most urgent tasks based on their deadlines or estimate effort.
+- Tasks are ranked from the most urgent to the least urgent.
 
 ### 📅 **Calendar View**
 - A **Calendar** showing tasks to do for the current and next months.
