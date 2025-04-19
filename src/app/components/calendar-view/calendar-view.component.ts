@@ -17,7 +17,16 @@ import { toSignal } from '@angular/core/rxjs-interop';
   imports: [CommonModule, HelptextComponent]
 })
 export class CalendarViewComponent implements OnInit {
-  @Input() tasks: Task[] = [];
+  private _tasks: Task[] = [];
+  @Input()
+  set tasks(value: Task[]) {
+    this._tasks = value;
+    this.generateCalendar();
+  }
+
+  get tasks(): Task[] {
+    return this._tasks;
+  }
 
   currentMonthSignal: Signal<Date>;
   weeks = signal<{ date: Date; tasks: Task[] }[][]>([]);
