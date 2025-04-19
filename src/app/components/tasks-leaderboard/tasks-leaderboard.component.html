@@ -1,14 +1,25 @@
 <h3 class="leaderboard-title">Tasks Priorities
   <app-helptext
-    description="Your tasks are ranked by their priority. The higher the number, the more urgent the task is."
+    description="Your tasks are ranked by their priority. The higher the task, the more urgent it is."
   ></app-helptext>
 </h3>
+
+
+<div>
+  <p class="d-flex justify-content-center align-items-center mb-3">Rank by : </p>
+  <div class="d-flex justify-content-center align-items-center mb-3">
+    <button class="btn btn-primary mx-3 tododue-btn-sec" (click)="sortByDueDate()">Due date</button>
+    <button class="btn btn-primary mx-3 tododue-btn-sec" (click)="sortByEstimateEffort()">Estimate effort</button>
+  </div>
+</div>
+
 <div class="leaderboard mb-5">
-    <div class="leaderboard-list">
-      <div *ngIf="getUrgentTasks().length > 0; else noTasks">
+  <div class="leaderboard-list">
+    <div *ngIf="(currentSort$ | async) as currentSort">
+      <div *ngIf="getTaskRanking(currentSort).length > 0; else noTasks">
         <div
           class="leaderboard-item mb-3"
-          *ngFor="let task of getUrgentTasks(); let i = index"
+          *ngFor="let task of getTaskRanking(currentSort); let i = index"
           [ngClass]="getTaskRankClass(i)"
         >
           <div class="leaderboard-rank">{{ i + 1 }}</div>
@@ -16,11 +27,13 @@
             <h5>{{ task.name }}</h5>
             <p><strong>Due:</strong> {{ task.dueDate }}</p>
             <p><strong>Status:</strong> {{ task.status }}</p>
+            <p><strong>Estimate effort:</strong> {{ task.effortEstimate }}</p>
           </div>
         </div>
       </div>
-      <ng-template #noTasks>
-        <p class="text-center">There is nothing to do</p>
-      </ng-template>
     </div>
+    <ng-template #noTasks>
+      <p class="text-center">There is nothing to do</p>
+    </ng-template>
+  </div>
 </div>
