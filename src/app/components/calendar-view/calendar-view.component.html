@@ -29,7 +29,7 @@
                  *ngFor="let task of day.tasks"
                  [style.backgroundColor]="getTaskColor(task.dueDate)"
                  title="{{ task.name }}">
-              {{ task.name }}
+                 <span *ngIf="task.status === 'Done'">✅</span> {{ task.name }}
             </div>
           </div>
         </ng-container>
