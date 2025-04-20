@@ -1,39 +1,88 @@
 <h3 class="calendar-title">Tasks Calendar
   <app-helptext
-    description="This calendar helps you to visualize your tasks by month. Each task is represented by a colored chip on the date it is due."
+    description="This calendar helps you to visualize your tasks by month, week, or day. Each task is represented by a colored chip on the date it is due."
   ></app-helptext>
 </h3>
+
 <div class="calendar-container">
-    <h2 class="month-title">
-      {{ currentMonthSignal() | date: 'MMMM yyyy' }}
-    </h2>
-    
-    <div class="calendar-navigation">
-      <button class="btn btn-primary mx-3 tododue-btn-sec" (click)="previousMonth()">&lt; Prev</button>
-      <button class="btn btn-primary mx-3 tododue-btn-sec" (click)="currentMonthView()">Today</button>
-      <button class="btn btn-primary mx-3 tododue-btn-sec" (click)="nextMonth()">Next &gt;</button>
+  <div class="view-toggle calendar-navigation">
+    <button class="btn btn-primary mx-2 tododue-btn-sec" [class.active]="currentView() === 'month'" (click)="setView('month')">Month</button>
+    <button class="btn btn-primary mx-2 tododue-btn-sec" [class.active]="currentView() === 'week'" (click)="setView('week')">Week</button>
+    <button class="btn btn-primary mx-2 tododue-btn-sec" [class.active]="currentView() === 'day'" (click)="setView('day')">Day</button>
+  </div>
+
+  <h2 class="month-title mt-5" *ngIf="currentView() === 'month'">
+    {{ currentMonthSignal() | date: 'MMMM yyyy' }}
+  </h2>
+
+  <div class="calendar-navigation" *ngIf="currentView() === 'month'">
+    <button class="btn btn-primary mx-3 tododue-btn-sec" (click)="previousMonth()">&lt; Prev</button>
+    <button class="btn btn-primary mx-3 tododue-btn-sec" (click)="currentMonthView()">Today</button>
+    <button class="btn btn-primary mx-3 tododue-btn-sec" (click)="nextMonth()">Next &gt;</button>
+  </div>
+
+  <!-- Day View -->
+  <div *ngIf="currentView() === 'day'" class="day-view">
+    <h4 class="month-title">Tasks due for Today ({{ dayTasks().date | date: 'fullDate' }})</h4>
+    <div class="text-center" *ngIf="dayTasks().tasks.length === 0">No tasks due today.</div>
+
+    <div
+    class="leaderboard-item mb-3"
+    *ngFor="let task of dayTasks().tasks"
+  >
+    <div class="leaderboard-content">
+      <h5>{{ task.name }} <span *ngIf="task.status === 'Done'">✅</span></h5>
+      <p><strong>Due:</strong> {{ task.dueDate }}</p>
+      <p><strong>Status:</strong> {{ task.status }}</p>
+      <p><strong>Estimate effort:</strong> {{ task.effortEstimate }}</p>
     </div>
-  
+  </div>
+
+  </div>
+
+  <!-- Week View -->
+  <div *ngIf="currentView() === 'week'" class="week-view">
+    <h4 class="month-title">Tasks for this week</h4>
     <div class="calendar-grid">
       <div class="day-name" *ngFor="let day of ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat']">
         {{ day }}
       </div>
-  
-      <ng-container *ngFor="let week of weeks()">
-        <ng-container *ngFor="let day of week">
-          <div class="calendar-cell" [class.empty]="!day.date" [class.today]="isToday(day.date)">
-            <div *ngIf="day.date" class="day-number">
-              {{ getDayLabel(day.date) }}
-            </div>
-            <div class="task-chip"
-                 *ngFor="let task of day.tasks"
-                 [style.backgroundColor]="getTaskColor(task.dueDate)"
-                 title="{{ task.name }}">
-                 <span *ngIf="task.status === 'Done'">✅</span> {{ task.name }}
-            </div>
+      <ng-container *ngFor="let day of weekDays()">
+        <div class="calendar-cell" [class.today]="isToday(day.date)">
+          <div class="day-number">
+            {{ getDayLabel(day.date) }}
           </div>
-        </ng-container>
+          <div class="task-chip"
+               *ngFor="let task of day.tasks"
+               [style.backgroundColor]="getTaskColor(task.dueDate)"
+               title="{{ task.name }}">
+               <span *ngIf="task.status === 'Done'">✅</span> {{ task.name }}
+          </div>
+        </div>
       </ng-container>
     </div>
+  </div>
+
+  <!-- Month View -->
+  <div *ngIf="currentView() === 'month'" class="calendar-grid">
+    <div class="day-name" *ngFor="let day of ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat']">
+      {{ day }}
+    </div>
+
+    <ng-container *ngFor="let week of weeks()">
+      <ng-container *ngFor="let day of week">
+        <div class="calendar-cell" [class.empty]="!day.date" [class.today]="isToday(day.date)">
+          <div *ngIf="day.date" class="day-number">
+            {{ getDayLabel(day.date) }}
+          </div>
+          <div class="task-chip"
+               *ngFor="let task of day.tasks"
+               [style.backgroundColor]="getTaskColor(task.dueDate)"
+               title="{{ task.name }}">
+               <span *ngIf="task.status === 'Done'">✅</span> {{ task.name }}
+          </div>
+        </div>
+      </ng-container>
+    </ng-container>
+  </div>
 </div>
-  

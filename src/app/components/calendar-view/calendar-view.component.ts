@@ -9,6 +9,8 @@ import { selectCurrentMonth } from '../../state/calendar/calendar.selector';
 import { setMonth } from '../../state/calendar/calendar.action';
 import { toSignal } from '@angular/core/rxjs-interop';
 
+type CalendarViewType = 'day' | 'week' | 'month';
+
 @Component({
   selector: 'app-calendar-view',
   standalone: true,
@@ -30,12 +32,21 @@ export class CalendarViewComponent implements OnInit {
 
   currentMonthSignal: Signal<Date>;
   weeks = signal<{ date: Date; tasks: Task[] }[][]>([]);
+  dayTasks = signal<{ date: Date; tasks: Task[] }>({ date: new Date(), tasks: [] });
+  weekDays = signal<{ date: Date; tasks: Task[] }[]>([]);
+
+  currentView = signal<CalendarViewType>('month');
 
   constructor(private store: Store) {
     this.currentMonthSignal = toSignal(this.store.select(selectCurrentMonth), { initialValue: new Date() });
   }
 
   ngOnInit(): void {
+    this.generateCalendar();
+  }
+
+  setView(view: CalendarViewType): void {
+    this.currentView.set(view);
     this.generateCalendar();
   }
 
@@ -61,31 +72,56 @@ export class CalendarViewComponent implements OnInit {
 
   private generateCalendar(): void {
     const currentMonth = this.currentMonthSignal();
-    const startOfMonth = new Date(currentMonth.getFullYear(), currentMonth.getMonth(), 1);
-    const endOfMonth = new Date(currentMonth.getFullYear(), currentMonth.getMonth() + 1, 0);
+    const currentView = this.currentView();
 
-    const startDay = startOfMonth.getDay();
-    const daysInMonth = endOfMonth.getDate();
-
-    const calendar: { date: Date; tasks: Task[] }[] = [];
-
-    for (let i = 0; i < startDay; i++) {
-      calendar.push({ date: null as any, tasks: [] });
-    }
-
-    for (let day = 1; day <= daysInMonth; day++) {
-      const date = new Date(currentMonth.getFullYear(), currentMonth.getMonth(), day);
-      const iso = date.toISOString().split('T')[0];
+    if (currentView === 'day') {
+      const today = new Date();
+      const iso = today.toISOString().split('T')[0];
       const tasksForDay = this.tasks.filter(task => task.dueDate.startsWith(iso));
-      calendar.push({ date, tasks: tasksForDay });
-    }
+      this.dayTasks.set({ date: today, tasks: tasksForDay });
+    } else if (currentView === 'week') {
+      const today = new Date();
+      const dayOfWeek = today.getDay(); // 0 (Sun) - 6 (Sat)
+      const sunday = new Date(today);
+      sunday.setDate(today.getDate() - dayOfWeek);
+      const week = [];
 
-    const weekChunks: { date: Date; tasks: Task[] }[][] = [];
-    for (let i = 0; i < calendar.length; i += 7) {
-      weekChunks.push(calendar.slice(i, i + 7));
-    }
+      for (let i = 0; i < 7; i++) {
+        const date = new Date(sunday);
+        date.setDate(sunday.getDate() + i);
+        const iso = date.toISOString().split('T')[0];
+        const tasksForDay = this.tasks.filter(task => task.dueDate.startsWith(iso));
+        week.push({ date, tasks: tasksForDay });
+      }
 
-    this.weeks.set(weekChunks);
+      this.weekDays.set(week);
+    } else {
+      const startOfMonth = new Date(currentMonth.getFullYear(), currentMonth.getMonth(), 1);
+      const endOfMonth = new Date(currentMonth.getFullYear(), currentMonth.getMonth() + 1, 0);
+
+      const startDay = startOfMonth.getDay();
+      const daysInMonth = endOfMonth.getDate();
+
+      const calendar: { date: Date; tasks: Task[] }[] = [];
+
+      for (let i = 0; i < startDay; i++) {
+        calendar.push({ date: null as any, tasks: [] });
+      }
+
+      for (let day = 1; day <= daysInMonth; day++) {
+        const date = new Date(currentMonth.getFullYear(), currentMonth.getMonth(), day);
+        const iso = date.toISOString().split('T')[0];
+        const tasksForDay = this.tasks.filter(task => task.dueDate.startsWith(iso));
+        calendar.push({ date, tasks: tasksForDay });
+      }
+
+      const weekChunks: { date: Date; tasks: Task[] }[][] = [];
+      for (let i = 0; i < calendar.length; i += 7) {
+        weekChunks.push(calendar.slice(i, i + 7));
+      }
+
+      this.weeks.set(weekChunks);
+    }
   }
 
   getDayLabel(date: Date | null): string {
