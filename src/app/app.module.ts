@@ -21,7 +21,6 @@ import { StoreModule } from '@ngrx/store';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { EffectsModule } from '@ngrx/effects';
 import { calendarReducer } from './state/calendar/calendar.reducer';
-import { sortTypeReducer } from './state/rank-sort/rank-sort.reducer';
 
 @NgModule({
   imports: [
@@ -42,7 +41,7 @@ import { sortTypeReducer } from './state/rank-sort/rank-sort.reducer';
     QuoteComponent,
     CalendarViewComponent,
     TaskViewsComponent,
-    StoreModule.forRoot({ calendar: calendarReducer, sortType: sortTypeReducer }),
+    StoreModule.forRoot({ calendar: calendarReducer }),
     StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: !isDevMode() }),
     EffectsModule.forRoot([])
   ],

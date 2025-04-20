@@ -14,8 +14,7 @@
 </div>
 
 <div class="leaderboard mb-5">
-  <div class="leaderboard-list">
-    <div *ngIf="(currentSort$ | async) as currentSort">
+    <div class="leaderboard-list">
       <div *ngIf="getTaskRanking(currentSort).length > 0; else noTasks">
         <div
           class="leaderboard-item mb-3"
@@ -31,9 +30,8 @@
           </div>
         </div>
       </div>
+      <ng-template #noTasks>
+        <p class="text-center">There is nothing to do</p>
+      </ng-template>
     </div>
-    <ng-template #noTasks>
-      <p class="text-center">There is nothing to do</p>
-    </ng-template>
-  </div>
 </div>

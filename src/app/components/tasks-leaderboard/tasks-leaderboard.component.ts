@@ -1,13 +1,9 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { HelptextComponent } from '../helptext/helptext.component';
 import { Task } from '../../models/task.model';
 import { TaskStatus } from '../../enum/task-status.enum';
 import { TaskRankingTypes } from '../../enum/task-ranking-types.enum';
-import { Store } from '@ngrx/store';
-import { setSortType } from '../../state/rank-sort/rank-sort.action';
-import { selectCurrentSortType } from '../../state/rank-sort/rank-sort.selector';
-import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-tasks-leaderboard',
@@ -16,23 +12,25 @@ import { Observable } from 'rxjs';
   styleUrl: './tasks-leaderboard.component.sass',
   imports: [CommonModule, HelptextComponent]
 })
-export class TasksLeaderboardComponent {
+export class TasksLeaderboardComponent implements OnInit {
   @Input() todoTasks: Task[] = [];
   @Input() inProgressTasks: Task[] = [];
   @Input() doneTasks: Task[] = [];
 
-  currentSort$: Observable<string>;
+  currentSort: string = TaskRankingTypes.DUE_DATE;
 
-  constructor(private store: Store) {
-    this.currentSort$ = this.store.select(selectCurrentSortType);
+  ngOnInit(): void { 
+    this.loadCurrentSortFromLocalStorage();
   }
 
   sortByDueDate(): void {
-    this.store.dispatch(setSortType({ sortType: TaskRankingTypes.DUE_DATE }));
+    this.currentSort = TaskRankingTypes.DUE_DATE;
+    this.saveCurrentSortToLocalStorage();
   }
 
   sortByEstimateEffort(): void {
-    this.store.dispatch(setSortType({ sortType: TaskRankingTypes.EFFORT_ESTIMATE }));
+    this.currentSort = TaskRankingTypes.EFFORT_ESTIMATE;
+    this.saveCurrentSortToLocalStorage();
   }
 
   getUrgentTasksByDueDate(): Task[] {
@@ -68,4 +66,22 @@ export class TasksLeaderboardComponent {
     }
     return '';
   }
+
+  saveCurrentSortToLocalStorage(): void {
+    if (typeof window !== 'undefined' && window.localStorage) {
+      const currentSort = this.currentSort;
+      localStorage.setItem('currentSort', JSON.stringify(currentSort));
+    }
+  }
+  
+  loadCurrentSortFromLocalStorage(): void {
+    if (typeof window !== 'undefined' && window.localStorage) {
+      const storedSort = localStorage.getItem('currentSort');
+      if (storedSort) {
+        const parsedSort = JSON.parse(storedSort);
+        this.currentSort = parsedSort;
+      }
+    }
+  }
+
 }
