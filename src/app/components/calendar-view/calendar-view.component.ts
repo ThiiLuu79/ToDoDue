@@ -5,10 +5,8 @@ import { HelptextComponent } from '../helptext/helptext.component';
 import { DueDateTypes } from '../../enum/due-date-types.enum';
 import { DueDateColors } from '../../enum/due-date-colors.enum';
 import { Store } from '@ngrx/store';
-import { selectCurrentMonth } from '../../state/calendar/calendar.selector';
-import { setMonth } from '../../state/calendar/calendar.action';
-import { selectCurrentView } from '../../state/calendar/calendar.selector';
-import { setCurrentView } from '../../state/calendar/calendar.action';
+import { selectCurrentMonth, selectCurrentView } from '../../state/calendar/calendar.selector';
+import { setMonth, setCurrentView } from '../../state/calendar/calendar.action';
 import { toSignal } from '@angular/core/rxjs-interop';
 
 type CalendarViewType = 'day' | 'week' | 'month';
@@ -80,24 +78,25 @@ export class CalendarViewComponent implements OnInit {
     const currentView = this.currentViewSignal() as CalendarViewType;
   
     if (currentView === 'day') {
-      const iso = currentDate.toISOString().split('T')[0];
+      const localDate = new Date(currentDate.getFullYear(), currentDate.getMonth(), currentDate.getDate());
+      const iso = localDate.toISOString().split('T')[0];
       const tasksForDay = this.tasks.filter(task => task.dueDate.startsWith(iso));
-      this.dayTasks.set({ date: currentDate, tasks: tasksForDay });
+      this.dayTasks.set({ date: localDate, tasks: tasksForDay });
   
     } else if (currentView === 'week') {
-
-      const today = new Date();
+      const today = new Date(currentDate);
       const dayOfWeek = today.getDay();
       const sunday = new Date(today);
       sunday.setDate(today.getDate() - dayOfWeek);
       const week = [];
-  
+
       for (let i = 0; i < 7; i++) {
-        const date = new Date(sunday);
-        date.setDate(sunday.getDate() + i);
-        const iso = date.toISOString().split('T')[0];
+        const base = new Date(sunday);
+        base.setDate(sunday.getDate() + i);
+        const localDate = new Date(base.getFullYear(), base.getMonth(), base.getDate());
+        const iso = localDate.toISOString().split('T')[0];
         const tasksForDay = this.tasks.filter(task => task.dueDate.startsWith(iso));
-        week.push({ date, tasks: tasksForDay });
+        week.push({ date: localDate, tasks: tasksForDay });
       }
   
       this.weekDays.set(week);
