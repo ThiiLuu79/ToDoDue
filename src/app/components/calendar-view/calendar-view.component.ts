@@ -76,21 +76,22 @@ export class CalendarViewComponent implements OnInit {
   }
 
   private generateCalendar(): void {
-    const currentMonth = this.currentMonthSignal();
-    const currentView = this.currentView();
-
+    const currentDate = this.currentMonthSignal();
+    const currentView = this.currentViewSignal() as CalendarViewType;
+  
     if (currentView === 'day') {
-      const today = new Date();
-      const iso = today.toISOString().split('T')[0];
+      const iso = currentDate.toISOString().split('T')[0];
       const tasksForDay = this.tasks.filter(task => task.dueDate.startsWith(iso));
-      this.dayTasks.set({ date: today, tasks: tasksForDay });
+      this.dayTasks.set({ date: currentDate, tasks: tasksForDay });
+  
     } else if (currentView === 'week') {
+
       const today = new Date();
-      const dayOfWeek = today.getDay(); // 0 (Sun) - 6 (Sat)
+      const dayOfWeek = today.getDay();
       const sunday = new Date(today);
       sunday.setDate(today.getDate() - dayOfWeek);
       const week = [];
-
+  
       for (let i = 0; i < 7; i++) {
         const date = new Date(sunday);
         date.setDate(sunday.getDate() + i);
@@ -98,33 +99,33 @@ export class CalendarViewComponent implements OnInit {
         const tasksForDay = this.tasks.filter(task => task.dueDate.startsWith(iso));
         week.push({ date, tasks: tasksForDay });
       }
-
+  
       this.weekDays.set(week);
+  
     } else {
-      const startOfMonth = new Date(currentMonth.getFullYear(), currentMonth.getMonth(), 1);
-      const endOfMonth = new Date(currentMonth.getFullYear(), currentMonth.getMonth() + 1, 0);
-
+      const startOfMonth = new Date(currentDate.getFullYear(), currentDate.getMonth(), 1);
+      const endOfMonth = new Date(currentDate.getFullYear(), currentDate.getMonth() + 1, 0);
       const startDay = startOfMonth.getDay();
       const daysInMonth = endOfMonth.getDate();
-
+  
       const calendar: { date: Date; tasks: Task[] }[] = [];
-
+  
       for (let i = 0; i < startDay; i++) {
         calendar.push({ date: null as any, tasks: [] });
       }
-
+  
       for (let day = 1; day <= daysInMonth; day++) {
-        const date = new Date(currentMonth.getFullYear(), currentMonth.getMonth(), day);
+        const date = new Date(currentDate.getFullYear(), currentDate.getMonth(), day);
         const iso = date.toISOString().split('T')[0];
         const tasksForDay = this.tasks.filter(task => task.dueDate.startsWith(iso));
         calendar.push({ date, tasks: tasksForDay });
       }
-
+  
       const weekChunks: { date: Date; tasks: Task[] }[][] = [];
       for (let i = 0; i < calendar.length; i += 7) {
         weekChunks.push(calendar.slice(i, i + 7));
       }
-
+  
       this.weeks.set(weekChunks);
     }
   }
