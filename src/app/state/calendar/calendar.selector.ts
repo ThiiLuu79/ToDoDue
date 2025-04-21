@@ -7,3 +7,8 @@ export const selectCurrentMonth = createSelector(
   selectCalendarState,
   (state: CalendarState) => state.currentMonth
 );
+
+export const selectCurrentView = createSelector(
+  selectCalendarState,
+  (state: CalendarState) => state.currentView
+);
