@@ -78,13 +78,13 @@ export class CalendarViewComponent implements OnInit {
     const currentView = this.currentViewSignal() as CalendarViewType;
   
     if (currentView === 'day') {
-      const localDate = new Date(currentDate.getFullYear(), currentDate.getMonth(), currentDate.getDate());
+      const localDate = new Date();
       const iso = localDate.toISOString().split('T')[0];
       const tasksForDay = this.tasks.filter(task => task.dueDate.startsWith(iso));
       this.dayTasks.set({ date: localDate, tasks: tasksForDay });
   
     } else if (currentView === 'week') {
-      const today = new Date(currentDate);
+      const today = new Date();
       const dayOfWeek = today.getDay();
       const sunday = new Date(today);
       sunday.setDate(today.getDate() - dayOfWeek);
