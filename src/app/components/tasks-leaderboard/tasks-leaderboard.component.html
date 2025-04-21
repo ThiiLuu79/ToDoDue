@@ -7,9 +7,9 @@
 
 <div>
   <p class="d-flex justify-content-center align-items-center mb-3">Rank by : </p>
-  <div class="d-flex justify-content-center align-items-center mb-3">
-    <button class="btn btn-primary mx-3 tododue-btn-sec" (click)="sortByDueDate()">Due date</button>
-    <button class="btn btn-primary mx-3 tododue-btn-sec" (click)="sortByEstimateEffort()">Estimate effort</button>
+  <div class="view-toggle d-flex justify-content-center align-items-center mb-3">
+    <button class="btn btn-primary mx-3 tododue-btn-sec" [class.active]="currentSort === 'dueDate'" (click)="sortByDueDate()">Due date</button>
+    <button class="btn btn-primary mx-3 tododue-btn-sec" [class.active]="currentSort === 'effortEstimate'" (click)="sortByEstimateEffort()">Estimate effort</button>
   </div>
 </div>
 

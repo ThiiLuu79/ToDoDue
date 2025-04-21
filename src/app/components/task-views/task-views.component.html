@@ -1,6 +1,6 @@
-<div class="d-flex justify-content-center align-items-center mt-5 mb-3">
-    <button class="btn btn-primary mx-3 tododue-btn" (click)="showPriorities()">Priorities view</button>
-    <button class="btn btn-primary mx-3 tododue-btn" (click)="showCalendar()">Calendar view</button>
+<div class="view-toggle d-flex justify-content-center align-items-center mt-5 mb-3">
+    <button class="btn btn-primary mx-3 tododue-btn" [class.active]="currentView === 'Priorities'" (click)="showPriorities()">Priorities view</button>
+    <button class="btn btn-primary mx-3 tododue-btn" [class.active]="currentView === 'Calendar'" (click)="showCalendar()">Calendar view</button>
 </div>
 
 <app-tasks-leaderboard
