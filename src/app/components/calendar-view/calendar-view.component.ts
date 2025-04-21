@@ -7,8 +7,6 @@ import { DueDateColors } from '../../enum/due-date-colors.enum';
 import { Store } from '@ngrx/store';
 import { selectCurrentMonth } from '../../state/calendar/calendar.selector';
 import { setMonth } from '../../state/calendar/calendar.action';
-import { selectCurrentView } from '../../state/calendar/calendar.selector';
-import { setCurrentView } from '../../state/calendar/calendar.action';
 import { toSignal } from '@angular/core/rxjs-interop';
 
 type CalendarViewType = 'day' | 'week' | 'month';
@@ -33,7 +31,6 @@ export class CalendarViewComponent implements OnInit {
   }
 
   currentMonthSignal: Signal<Date>;
-  currentViewSignal: Signal<string>;
   weeks = signal<{ date: Date; tasks: Task[] }[][]>([]);
   dayTasks = signal<{ date: Date; tasks: Task[] }>({ date: new Date(), tasks: [] });
   weekDays = signal<{ date: Date; tasks: Task[] }[]>([]);
@@ -42,7 +39,6 @@ export class CalendarViewComponent implements OnInit {
 
   constructor(private store: Store) {
     this.currentMonthSignal = toSignal(this.store.select(selectCurrentMonth), { initialValue: new Date() });
-    this.currentViewSignal = toSignal(this.store.select(selectCurrentView), { initialValue: 'month' });
   }
 
   ngOnInit(): void {
@@ -51,7 +47,6 @@ export class CalendarViewComponent implements OnInit {
 
   setView(view: CalendarViewType): void {
     this.currentView.set(view);
-    this.store.dispatch(setCurrentView({ view }));
     this.generateCalendar();
   }
 
@@ -76,22 +71,21 @@ export class CalendarViewComponent implements OnInit {
   }
 
   private generateCalendar(): void {
-    const currentDate = this.currentMonthSignal();
-    const currentView = this.currentViewSignal() as CalendarViewType;
-  
-    if (currentView === 'day') {
-      const iso = currentDate.toISOString().split('T')[0];
-      const tasksForDay = this.tasks.filter(task => task.dueDate.startsWith(iso));
-      this.dayTasks.set({ date: currentDate, tasks: tasksForDay });
-  
-    } else if (currentView === 'week') {
+    const currentMonth = this.currentMonthSignal();
+    const currentView = this.currentView();
 
+    if (currentView === 'day') {
       const today = new Date();
-      const dayOfWeek = today.getDay();
+      const iso = today.toISOString().split('T')[0];
+      const tasksForDay = this.tasks.filter(task => task.dueDate.startsWith(iso));
+      this.dayTasks.set({ date: today, tasks: tasksForDay });
+    } else if (currentView === 'week') {
+      const today = new Date();
+      const dayOfWeek = today.getDay(); // 0 (Sun) - 6 (Sat)
       const sunday = new Date(today);
       sunday.setDate(today.getDate() - dayOfWeek);
       const week = [];
-  
+
       for (let i = 0; i < 7; i++) {
         const date = new Date(sunday);
         date.setDate(sunday.getDate() + i);
@@ -99,33 +93,33 @@ export class CalendarViewComponent implements OnInit {
         const tasksForDay = this.tasks.filter(task => task.dueDate.startsWith(iso));
         week.push({ date, tasks: tasksForDay });
       }
-  
+
       this.weekDays.set(week);
-  
     } else {
-      const startOfMonth = new Date(currentDate.getFullYear(), currentDate.getMonth(), 1);
-      const endOfMonth = new Date(currentDate.getFullYear(), currentDate.getMonth() + 1, 0);
+      const startOfMonth = new Date(currentMonth.getFullYear(), currentMonth.getMonth(), 1);
+      const endOfMonth = new Date(currentMonth.getFullYear(), currentMonth.getMonth() + 1, 0);
+
       const startDay = startOfMonth.getDay();
       const daysInMonth = endOfMonth.getDate();
-  
+
       const calendar: { date: Date; tasks: Task[] }[] = [];
-  
+
       for (let i = 0; i < startDay; i++) {
         calendar.push({ date: null as any, tasks: [] });
       }
-  
+
       for (let day = 1; day <= daysInMonth; day++) {
-        const date = new Date(currentDate.getFullYear(), currentDate.getMonth(), day);
+        const date = new Date(currentMonth.getFullYear(), currentMonth.getMonth(), day);
         const iso = date.toISOString().split('T')[0];
         const tasksForDay = this.tasks.filter(task => task.dueDate.startsWith(iso));
         calendar.push({ date, tasks: tasksForDay });
       }
-  
+
       const weekChunks: { date: Date; tasks: Task[] }[][] = [];
       for (let i = 0; i < calendar.length; i += 7) {
         weekChunks.push(calendar.slice(i, i + 7));
       }
-  
+
       this.weeks.set(weekChunks);
     }
   }

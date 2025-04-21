@@ -6,23 +6,23 @@
 
 <div class="calendar-container">
   <div class="view-toggle calendar-navigation">
-    <button class="btn btn-primary mx-2 tododue-btn-sec" [class.active]="currentViewSignal() === 'month'" (click)="setView('month')">Month</button>
-    <button class="btn btn-primary mx-2 tododue-btn-sec" [class.active]="currentViewSignal() === 'week'" (click)="setView('week')">Week</button>
-    <button class="btn btn-primary mx-2 tododue-btn-sec" [class.active]="currentViewSignal() === 'day'" (click)="setView('day')">Day</button>
+    <button class="btn btn-primary mx-2 tododue-btn-sec" [class.active]="currentView() === 'month'" (click)="setView('month')">Month</button>
+    <button class="btn btn-primary mx-2 tododue-btn-sec" [class.active]="currentView() === 'week'" (click)="setView('week')">Week</button>
+    <button class="btn btn-primary mx-2 tododue-btn-sec" [class.active]="currentView() === 'day'" (click)="setView('day')">Day</button>
   </div>
 
-  <h2 class="month-title mt-5" *ngIf="currentViewSignal() === 'month'">
+  <h2 class="month-title mt-5" *ngIf="currentView() === 'month'">
     {{ currentMonthSignal() | date: 'MMMM yyyy' }}
   </h2>
 
-  <div class="calendar-navigation" *ngIf="currentViewSignal() === 'month'">
+  <div class="calendar-navigation" *ngIf="currentView() === 'month'">
     <button class="btn btn-primary mx-3 tododue-btn-sec" (click)="previousMonth()">&lt; Prev</button>
     <button class="btn btn-primary mx-3 tododue-btn-sec" (click)="currentMonthView()">Today</button>
     <button class="btn btn-primary mx-3 tododue-btn-sec" (click)="nextMonth()">Next &gt;</button>
   </div>
 
   <!-- Day View -->
-  <div *ngIf="currentViewSignal() === 'day'" class="day-view">
+  <div *ngIf="currentView() === 'day'" class="day-view">
     <h4 class="month-title">Tasks due for Today ({{ dayTasks().date | date: 'fullDate' }})</h4>
     <div class="text-center" *ngIf="dayTasks().tasks.length === 0">No tasks due today.</div>
 
@@ -41,7 +41,7 @@
   </div>
 
   <!-- Week View -->
-  <div *ngIf="currentViewSignal() === 'week'" class="week-view">
+  <div *ngIf="currentView() === 'week'" class="week-view">
     <h4 class="month-title">Tasks for this week</h4>
     <div class="calendar-grid">
       <div class="day-name" *ngFor="let day of ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat']">
@@ -64,7 +64,7 @@
   </div>
 
   <!-- Month View -->
-  <div *ngIf="currentViewSignal() === 'month'" class="calendar-grid">
+  <div *ngIf="currentView() === 'month'" class="calendar-grid">
     <div class="day-name" *ngFor="let day of ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat']">
       {{ day }}
     </div>
