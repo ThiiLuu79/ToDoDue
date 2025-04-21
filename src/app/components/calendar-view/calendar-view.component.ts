@@ -7,6 +7,8 @@ import { DueDateColors } from '../../enum/due-date-colors.enum';
 import { Store } from '@ngrx/store';
 import { selectCurrentMonth } from '../../state/calendar/calendar.selector';
 import { setMonth } from '../../state/calendar/calendar.action';
+import { selectCurrentView } from '../../state/calendar/calendar.selector';
+import { setCurrentView } from '../../state/calendar/calendar.action';
 import { toSignal } from '@angular/core/rxjs-interop';
 
 type CalendarViewType = 'day' | 'week' | 'month';
@@ -31,6 +33,7 @@ export class CalendarViewComponent implements OnInit {
   }
 
   currentMonthSignal: Signal<Date>;
+  currentViewSignal: Signal<string>;
   weeks = signal<{ date: Date; tasks: Task[] }[][]>([]);
   dayTasks = signal<{ date: Date; tasks: Task[] }>({ date: new Date(), tasks: [] });
   weekDays = signal<{ date: Date; tasks: Task[] }[]>([]);
@@ -39,6 +42,7 @@ export class CalendarViewComponent implements OnInit {
 
   constructor(private store: Store) {
     this.currentMonthSignal = toSignal(this.store.select(selectCurrentMonth), { initialValue: new Date() });
+    this.currentViewSignal = toSignal(this.store.select(selectCurrentView), { initialValue: 'month' });
   }
 
   ngOnInit(): void {
@@ -47,6 +51,7 @@ export class CalendarViewComponent implements OnInit {
 
   setView(view: CalendarViewType): void {
     this.currentView.set(view);
+    this.store.dispatch(setCurrentView({ view }));
     this.generateCalendar();
   }
 

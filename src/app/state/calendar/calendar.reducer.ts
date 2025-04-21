@@ -3,7 +3,8 @@ import { CalendarState } from './calendar.models';
 import * as CalendarActions from './calendar.action';
 
 const initialState: CalendarState = {
-  currentMonth: new Date()
+  currentMonth: new Date(),
+  currentView: 'month'
 };
 
 export const calendarReducer = createReducer(
@@ -11,5 +12,9 @@ export const calendarReducer = createReducer(
   on(CalendarActions.setMonth, (state, { month }) => ({
     ...state,
     currentMonth: month
+  })),
+  on(CalendarActions.setCurrentView, (state, { view }) => ({
+    ...state,
+    currentView: view
   }))
 );
