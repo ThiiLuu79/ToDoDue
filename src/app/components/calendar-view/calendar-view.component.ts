@@ -62,6 +62,7 @@ export class CalendarViewComponent implements OnInit {
 
   nextMonth(): void {
     const newMonth = new Date(this.currentMonthSignal().getTime());
+    newMonth.setDate(1); // Ensure the date is set to the first day of the month to avoid overflow issues
     newMonth.setMonth(newMonth.getMonth() + 1);
     this.store.dispatch(setMonth({ month: newMonth }));
     this.generateCalendar();
